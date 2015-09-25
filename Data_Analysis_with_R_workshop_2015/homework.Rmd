@@ -1,0 +1,108 @@
+---
+title: "Data Analysis with R Workshop - Homework"
+author: "Chester Ismay"
+date: "September 23, 2015"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# This is where we load in all the packages we plan to use
+
+# List of packages required for this analysis
+pkg <- c("dplyr", "tidyr", "ggplot2", "broom", "babynames", "devtools")
+
+# Check if packages are not installed and assign the
+# names of the packages not installed to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+# Load the packages into R (dplyr has a lot of extra messages that we've turned off here)
+suppressPackageStartupMessages(library(dplyr))
+library(tidyr)
+library(ggplot2)
+library(broom)
+library(babynames)
+
+# Install Chester's pnwflights14 package (if not already)
+if (!require(pnwflights14)){
+  library(devtools)
+  devtools::install_github("ismayc/pnwflights14")
+  }
+library(pnwflights14)
+data("flights", package = "pnwflights14")
+
+# We also change the number of rows to print by default here (default is 10).
+options(dplyr.print_max = 100)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: (`cars` is a data set automatically loaded into R.)
+
+```{r cars}
+summary(cars)
+```
+
+#### Load in the data
+
+The `babynames` data comes from the Social Security Administration and gives information about the Top 1000 names given to children in the USA since 1880 (http://www.ssa.gov/oact/babynames/limits.html).  The `flights` data comes from the Bureau of Transportation Statistics at the US Department of Transportation and gives information about all outgoing flights from SEA and PDX in 2014 (http://www.transtats.bts.gov/).
+
+```{r}
+data("flights", package = "pnwflights14")
+data("names", package = "babynames")
+```
+
+Now that the data is loaded try the following problems.  We won't focus on plotting anything today.  You can come to the **Data Visualization using R** workshop next week for that!  Remember that you will need to include all of your R code in Chunks.  I've added a few blank chunks below to get you started.  Note that I've also labeled the chunks corresponding to their problem number.  It's always a good habit to label your chunks!
+
+Notice that the data is called `names` above when we load it from the `babynames` package, but you will receive an error if you try to use `names` as your data frame before the `%>%`.  This is just a quirk with how Hadley labeled things. 
+
+#### One more example
+
+Identify how many people were born with your first name in the US in 2010.  (If you have a rare first name, try a more common name instead.)
+
+```{r example}
+entered_name <- "Jack"
+entered_year <- 2010
+result <- babynames %>% filter(name == entered_name) %>%
+  filter(year == entered_year) %>%
+  summarize(count = n())
+result
+```
+
+Another cool thing is that you can reference values stored in R directly in your text.  Something like this:
+
+We have determined that in `r entered_year` there were `r result` babies born in the US with the first name `r entered_name`.
+
+#### Hint
+
+Sometimes you will get errors that don't seem to make sense or resulting data frames that have no values in them.  Oftentimes, this is due to missing data appearing in the datasets.  Lots of summary functions in R include the argument `na.rm`.  It's usually a good strategy to set it to `TRUE`.  For example, `mean(arr_time, na.rm = TRUE)`.
+
+### Problems
+
+1. How many people have been named "Robin" over all the years in the data set?  How many males?  How many females?
+
+```{r problem1}
+
+```
+
+2. What name has been the most popular over time for males?  For females?  (There are various ways to measure this.  Let's look at the highest median proportion over time.  Try a different measure if you like!)
+
+```{r problem2}
+
+```
+
+3.  Select the following three variables from the `flights` dataset:  `carrier`, `origin`, and `arr_delay`.  Assign this subset to a new variable called `flights2`.  Using `flights2`, what was the largest arrival delay for each of the carriers at each of the airports?  (If you'd like a reference to what the carrier abbreviations stand for, you can find them in the `airlines` data set in `pnwflights14`.)
+
+4.  Conduct a $t$-test (at 5\% significance) to determine whether a significant difference exists between the mean distance traveled for flights leaving Portland compared to flights leaving Seattle.  Do we have evidence that a difference exists?
+
+
+5.  Conduct a $t$-test to determine whether a significant difference exists between the mean air time traveled for flights leaving Seattle for the first half of the year compared to the second half of the year.
+
+6.  Run an ANOVA (at 10% significance) to compare the mean departure delay times for each of the twelve months of the year in Seattle.  Do we evidence to reject the null hypothesis of $\mu_{1} = \mu_{2} = \mu_{3} = \mu_{4} = \mu_{5} = \mu_{6} = \mu_{7} = \mu_{8} = \mu_{9} = \mu_{10} = \mu_{11} = \mu_{12}$?
