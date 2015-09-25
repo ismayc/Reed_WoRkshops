@@ -1,0 +1,106 @@
+---
+title: "Introduction to R"
+author: "Chester Ismay, Instructional Technologist for Quantitative Applications"
+date: "September 11, 2015"
+output:
+  ioslides_presentation:
+    incremental: yes
+    logo: griffin.png
+  beamer_presentation:
+    incremental: no
+subtitle: Some of What Makes It Powerful and Cool
+---
+
+# The traditional approach to lab reports
+
+## Excel and Word
+
+ - Enter values into Excel
+ - Try to get chart/plot to look the way you want
+ - Copy figure into Word document
+ - Identify key values from your analysis
+ - Provide comments on trends in the plot
+ - "Print off" and turn in
+
+## What if you need to make modifications?
+
+ - Try to follow how you created formulas in Excel for analysis
+ - Make sure to not inadvertently change any Excel cell values
+ - Redo making of Excel figure(s) (often from scratch)
+ - Remember to copy new figure(s) into Word document
+ - Remember to update values in modified Word document
+ - **This process is often tedious and frustrating.** <br /> <br /> _**What if there was a better way?**_
+
+# Use R!
+
+## What is R?
+
+ - R is a completely free software package and language for statistical analysis and graphics.
+ - It _excels_ in helping you with
+      - data manipulation
+      - automation
+      - reproducibility
+      - improved accuracy
+      - error finding
+      - customizability
+- Any downsides?
+
+# Learning how to use R
+
+## RStudio, R Markdown, & me!
+
+ - RStudio is a powerful user interface that helps you get better control of your analysis.
+ - It is also completely free.
+ - You can write your entire paper/report (text, code, analysis, graphics, etc.) all in R Markdown.
+ - If you need to update any of your code, R Markdown will automatically update your plots and output of your analysis and will create an updated PDF file.
+ - **No more copy-and-paste!**
+ - My main responsibility in this position is to help members of the Reed community learn R and help them with their analysis and graphics.
+
+
+# What to do next?
+
+## Installation and help
+
+- <http://reed.edu/data-at-reed/software/R/r_studio.html>
+- <http://reed.edu/data-at-reed/resources/>
+- <https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf>
+- <http://www.cookbook-r.com/>
+
+- <cismay@reed.edu>
+
+# Who am I?
+
+## Background
+
+- Grew up in western South Dakota (town of 112 people)
+- BS in Mathematics, minor in Computer Science from SDSM&T
+- MS in Statistics from Northern Arizona University
+- Worked as an actuary before obtaining PhD in Statistics from Arizona State University
+- Was Assistant Professor of Statistics and Data Science at Ripon College in Wisconsin the last two years
+- Moved to Portland area this summer
+- Started working at Reed one month ago today
+- Love helping others with statistical consulting and R programming
+
+## When am I available?
+
+> - Generally available 9 AM to 5 PM Monday - Friday
+> - Email me at cismay@reed.edu or chester.ismay@reed.edu
+> - Office (ETC 223) hours
+>     - Mondays (11 AM to noon)
+>     - Tuesdays and Thursdays (2 PM to 3 PM)
+
+## Data @ Reed Research Skills Workshops for Fall 2015
+
+All workshops in ETC 211 from 4 - 5 PM
+
+> - September 16 - Data analysis with Stata
+> - September 23 - Data analysis with R
+> - September 30 - Data visualization using R
+> - October 7 - Maps and more: spatial data
+> - October 14 - Reproducible research
+ 
+# Thanks! <br /> <br /> <br /> (cismay@reed.edu) 
+
+Slides available at  http://rpubs.com/cismay/chem101
+
+
