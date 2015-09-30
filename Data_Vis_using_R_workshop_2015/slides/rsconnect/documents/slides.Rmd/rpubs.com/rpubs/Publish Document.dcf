@@ -6,4 +6,8 @@ appId:
 bundleId:
         https://api.rpubs.com/api/v1/document/115044/f346445b8afe479ca66efd2c007be62d
 url: http://rpubs.com/cismay/115044
+<<<<<<< HEAD
 when: 1443650102.36397
+=======
+when: 1443645795.47723
+>>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
