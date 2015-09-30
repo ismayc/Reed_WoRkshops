@@ -1,0 +1,98 @@
+---
+title: "Data Visualization using R Workshop - Homework Solutions"
+author: "Chester Ismay"
+date: "September 30, 2015"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# This is where we load in all the packages we plan to use
+
+# List of packages required for this analysis
+pkg <- c("dplyr", "ggplot2")
+
+# Check if packages are not installed and assign the
+# names of the packages not installed to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+# Load the packages into R (We've turned off here loading messages here)
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: (`cars` is a data set automatically loaded into R.)
+
+```{r cars}
+summary(cars)
+```
+
+#### Load in the data
+
+The problems here will have you examine the `movies` dataset included in the `ggplot2` package.
+
+```{r get_data}
+data(movies, package = "ggplot2")
+```
+
+I recommend entering `?movies` into the Console to get an idea of how the data was collected and what the columns correspond to in the data set.
+
+Now that the data is loaded try the following problems. Remember that you will need to include all of your R code in Chunks.  I've added a few blank chunks below to get you started.  Note that I've also labeled the chunks corresponding to their problem number.  It's always a good habit to label your chunks!
+
+### Problems
+
+1. Is there a relationship between longer movies and the number of votes the movies received on IMDB?
+
+```{r vis_problem1}
+movies %>% ggplot(aes(x = votes, y = length)) +
+  geom_point()
+```
+
+2. Same question as Problem 1 but use only movies with `length` less than 240 minutes.  Also use the `alpha` parameter to `geom_point` to deal with over-plotting.
+
+```{r vis_problem2}
+movies %>% filter(length < 240) %>%
+  ggplot(aes(x = votes, y = length)) +
+  geom_point(alpha = 0.25)
+```
+
+3. Use the `geom_smooth` function to add a regression line (without confidence bands) to the plot in Problem 2.
+
+```{r vis_problem3}
+movies %>% filter(length < 240) %>%
+  ggplot(aes(x = votes, y = length)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+4.  What does the distribution of movies in regards to MPAA rating (by count) look like for this dataset?  (Exclude those without an MPAA rating.)  Use a light color for your plot.  A list of all built-in R colors is at <http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf>.
+
+```{r vis_problem4}
+movies %>% filter(mpaa != "") %>%
+  ggplot(aes(x = mpaa)) +
+  geom_bar(stat = "bin", fill = "cyan2")
+```
+
+5.  How does the `r10` variable relate to overall rating?  Additionally, look into whether or not the movie is a documentary.  (Note that if you are trying to color based on the values of a variable you will need to enclose it in the `aes()` function.) _Hint_:  You may find it useful to wrap the genre columns in `factor()` to convert them to a categorical variable instead of a numerical.  Check to see what happens when you don't include `factor()` below.
+
+```{r vis_problem5a}
+movies %>%
+  ggplot(aes(x = r10, y = rating)) +
+  geom_point(aes(colour = factor(Documentary)))
+```
+
+```{r vis_problem5b}
+movies %>%
+  ggplot(aes(x = r10, y = rating)) +
+  geom_point() +
+  facet_grid(. ~ Documentary)
+```
