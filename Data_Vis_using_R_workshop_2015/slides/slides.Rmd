@@ -163,11 +163,7 @@ WTF Visualizations : <http://viz.wtf/>
 
 ### Portland 2014 Departing Flights
 
-<<<<<<< HEAD
 ```{r pdx}
-=======
-```{r pnw}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 library(pnwflights14); data("flights", package = "pnwflights14")
 pdx_flights <- flights %>% filter(origin == "PDX") %>% 
   select(-year, -origin)
@@ -184,31 +180,19 @@ pdx_flights %>% str()
 
 ## How do these "arriving early" flights vary by flight distance?
 
-<<<<<<< HEAD
 ```{r get_early}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 pdx_early_flights <- pdx_flights %>% na.omit() %>%
   filter(arr_delay < -30)
 ```
 
-<<<<<<< HEAD
 ```{r early, eval = FALSE}
-=======
-```{r, eval = FALSE}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 pdx_early_flights %>% ggplot(aes(x = distance, y = arr_delay)) +
   geom_point()
 ```
 
 ---
 
-<<<<<<< HEAD
 ```{r early_plot}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 pdx_early_flights %>% ggplot(aes(x = distance, y = arr_delay)) +
   geom_point()
 ```
@@ -216,25 +200,16 @@ pdx_early_flights %>% ggplot(aes(x = distance, y = arr_delay)) +
 ---
 
 
-<<<<<<< HEAD
 ```{r HI, eval = FALSE, cache = TRUE}
 pdx_early_flights %>%
   mutate(hawaii_dest = ifelse(dest %in% c("OGG", "KOA", "HNL", "LIH"), 
                               "Hawaiian", "Not Hawaiian")) %>%
   ggplot(aes(x = distance, y = arr_delay)) +
-=======
-```{r, eval = FALSE, cache = TRUE}
-pdx_early_flights %>%
-  mutate(hawaii_dest = ifelse(dest %in% c("OGG", "KOA", "HNL", "LIH"), 
-                              "Hawaiian", "Not Hawaiian")) %>%
-  ggplot(aes(x = distance , y = arr_delay)) +
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
   geom_point(aes(color = hawaii_dest))
 ```
 
 ---
 
-<<<<<<< HEAD
 ```{r HI_plot, cache = TRUE}
 pdx_early_flights %>%
   mutate(hawaii_dest = ifelse(dest %in% c("OGG", "KOA", "HNL", "LIH"), 
@@ -246,20 +221,6 @@ pdx_early_flights %>%
 ---
 
 ```{r HI_box, eval = FALSE, cache = TRUE}
-=======
-```{r, cache = TRUE}
-pdx_early_flights %>%
-  mutate(hawaii_dest = ifelse(dest %in% c("OGG", "KOA", "HNL", "LIH"), 
-                              "Hawaiian", "Not Hawaiian")) %>%
-  ggplot(aes(x = distance , y = arr_delay)) +
-  geom_point(aes(color = hawaii_dest))
-```
-
-
----
-
-```{r, eval = FALSE, cache = TRUE}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 pdx_early_flights %>% 
   mutate(hawaii_dest = ifelse(dest %in% c("OGG", "KOA", "HNL", "LIH"), 
                               "Hawaiian", "Not Hawaiian")) %>%
@@ -269,11 +230,7 @@ pdx_early_flights %>%
 
 ---
 
-<<<<<<< HEAD
 ```{r HI_boxplot, cache = TRUE}
-=======
-```{r, cache = TRUE}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 pdx_early_flights %>% 
   mutate(hawaii_dest = ifelse(dest %in% c("OGG", "KOA", "HNL", "LIH"), 
                               "Hawaiian", "Not Hawaiian")) %>%
@@ -283,16 +240,9 @@ pdx_early_flights %>%
 
 ---
 
-<<<<<<< HEAD
 ## A non-graphical answer
 
 ```{r HI_table}
-=======
-
-## A non-graphical answer
-
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 flights %>% na.omit() %>%
   mutate(hawaii_dest = ifelse(dest %in% c("OGG", "KOA", "HNL", "LIH"), 
                               "Hawaiian", "Not Hawaiian")) %>%
@@ -308,22 +258,14 @@ flights %>% na.omit() %>%
 
 ---
 
-<<<<<<< HEAD
 ```{r SEA_summary}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 summary_sea_flights <- flights %>% na.omit() %>%
   filter(origin == "SEA") %>%
   group_by(carrier) %>%
   summarize(mean_dep_delay = mean(dep_delay))
 ```
 
-<<<<<<< HEAD
 ```{r SEA_bad_barplot}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 summary_sea_flights %>% ggplot(aes(x = carrier, y = mean_dep_delay)) +
   geom_bar()
 ```
@@ -332,11 +274,7 @@ summary_sea_flights %>% ggplot(aes(x = carrier, y = mean_dep_delay)) +
 
 ## What happened?
 
-<<<<<<< HEAD
 ```{r SEA_barplot}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 summary_sea_flights %>% ggplot(aes(x = carrier, y = mean_dep_delay)) +
   geom_bar(stat = "identity")
 ```
@@ -349,11 +287,7 @@ summary_sea_flights %>% ggplot(aes(x = carrier, y = mean_dep_delay)) +
 
 ## Stylizing 
 
-<<<<<<< HEAD
 ```{r sea_highlight}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 summary_sea_flights %>% ggplot(aes(x = reorder(carrier, mean_dep_delay), 
                                    y = mean_dep_delay)) +
   geom_bar(stat = "identity", colour = "red")
@@ -363,11 +297,7 @@ summary_sea_flights %>% ggplot(aes(x = reorder(carrier, mean_dep_delay),
 
 ## Stylizing (Part Deux)
 
-<<<<<<< HEAD
 ```{r sea_fill, fig.height = 3}
-=======
-```{r fig.width = 8, fig.height = 3}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 summary_sea_flights %>% ggplot(aes(x = reorder(carrier, mean_dep_delay), 
                                    y = mean_dep_delay)) +
   geom_bar(stat = "identity", fill = "red") +
@@ -384,11 +314,7 @@ summary_sea_flights %>% ggplot(aes(x = reorder(carrier, mean_dep_delay),
 
 ---
 
-<<<<<<< HEAD
 ```{r full_arr_delay}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 flights %>% filter(arr_delay < -30) %>% 
   ggplot(aes(x = arr_delay)) +
   geom_histogram(stat = "bin", binwidth = 1, colour = "blue")
@@ -396,11 +322,7 @@ flights %>% filter(arr_delay < -30) %>%
 
 ---
 
-<<<<<<< HEAD
 ```{r set_seasons}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 flights_seasons <- flights %>% filter(arr_delay < -30) %>% 
   na.omit() %>%
   mutate(season = ifelse(month %in% 3:5, "spring",
@@ -413,11 +335,7 @@ flights_seasons <- flights %>% filter(arr_delay < -30) %>%
 
 ## Ugly first try
 
-<<<<<<< HEAD
 ```{r bad_hist}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 flights_seasons %>%
   ggplot(aes(x = arr_delay, fill = season)) +
   geom_histogram(stat = "bin", binwidth = 1)
@@ -425,11 +343,7 @@ flights_seasons %>%
 
 ---
 
-<<<<<<< HEAD
 ```{r facet1}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 flights_seasons %>% ggplot(aes(x = arr_delay)) +
   geom_histogram(stat = "bin", binwidth = 1) +
   facet_grid(. ~ season)
@@ -437,11 +351,7 @@ flights_seasons %>% ggplot(aes(x = arr_delay)) +
 
 ---
 
-<<<<<<< HEAD
 ```{r facet2}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 flights_seasons %>% ggplot(aes(x = arr_delay)) +
   geom_histogram(stat = "bin", binwidth = 1) +
   facet_grid(season ~ .)
@@ -450,11 +360,7 @@ flights_seasons %>% ggplot(aes(x = arr_delay)) +
 
 ---
 
-<<<<<<< HEAD
 ```{r season_box}
-=======
-```{r}
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
 flights_seasons %>% ggplot(aes(x = season, y = arr_delay)) +
   geom_boxplot()
 ```
