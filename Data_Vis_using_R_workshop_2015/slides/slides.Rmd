@@ -245,7 +245,6 @@ pdx_early_flights %>%
 ```
 
 ---
-
 ### What about delays throughout the year?
 
 ---
