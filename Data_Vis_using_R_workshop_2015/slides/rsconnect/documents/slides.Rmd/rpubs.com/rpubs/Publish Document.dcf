@@ -2,12 +2,8 @@ name: Publish Document
 account: rpubs
 server: rpubs.com
 appId:
-        https://api.rpubs.com/api/v1/document/115044/f346445b8afe479ca66efd2c007be62d
+        https://api.rpubs.com/api/v1/document/115827/3e17168f5fc84d85be067e028bad5be3
 bundleId:
-        https://api.rpubs.com/api/v1/document/115044/f346445b8afe479ca66efd2c007be62d
-url: http://rpubs.com/cismay/115044
-<<<<<<< HEAD
-when: 1443650102.36397
-=======
-when: 1443645795.47723
->>>>>>> a072d69a3c505373d3aa07ea035b893acfe3f879
+        https://api.rpubs.com/api/v1/document/115827/3e17168f5fc84d85be067e028bad5be3
+url: http://rpubs.com/cismay/115827
+when: 1444066193.41718
