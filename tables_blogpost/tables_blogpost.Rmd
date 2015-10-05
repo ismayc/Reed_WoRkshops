@@ -1,0 +1,154 @@
+---
+output: 
+  html_document:
+    keep_md: true
+          
+---
+
+One of the neat tools available via a variety of packages in **R** is the creation of beautiful tables using data frames stored in **R**.  In what follows, I'll discuss these different options using data on departing flights from Seattle and Portland in 2014.  (More information and the source code for this **R** package is available at <https://github.com/ismayc/pnwflights14>.)
+
+We begin by ensuring the needed packages are installed and then load them into our **R** session.
+
+```{r setup, warning = FALSE, message = FALSE}
+# List of packages required for this analysis
+pkg <- c("dplyr", "knitr", "devtools", "DT", "xtable")
+
+# Check if packages are not installed and assign the
+# names of the packages not installed to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+# Load the packages into R
+library(dplyr)
+library(knitr)
+library(DT)
+library(xtable)
+
+# Install Chester's pnwflights14 package (if not already)
+if (!require(pnwflights14)){
+  library(devtools)
+  devtools::install_github("ismayc/pnwflights14")
+  }
+library(pnwflights14)
+
+# Load the flights dataset
+data("flights", package = "pnwflights14")
+```
+
+The dataset provides for the development of a lot of interesting questions.  Here I will delve further into some of the questions I addressed in two recent workshops I led in the Fall 2015 Data @ Reed Research Skills Workshop Series.  (Slides available at <http://rpubs.com/cismay>.)
+
+The questions I will analyze by creating tables are
+
+1. Which destinations had the worst arrival delays (on average) from the two PNW airports?
+
+2. How does the maximum departure delay vary by month for each of the two airports?
+
+3. How many flights departed for each airline from each of the airports? 
+
+#### The `kable` function in the `knitr` package
+
+To address the first question, we will use the `dplyr` package written by Hadley Wickham as below.  We'll use the `top_n` function to isolate the 5 worst mean arrival delays.
+
+```{r worst_arr_delays}
+worst_arr_delays <- flights %>% group_by(dest) %>%
+  summarize(mean_arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  arrange(desc(mean_arr_delay)) %>%
+  top_n(n = 5, wt = mean_arr_delay)
+```
+
+This information is helpful but you may not necessarily know which airport each of these FAA airport codes refers to.  One of the other data sets included in the `pnwflights14` package is `airports` that lists the names.  Here we will do a match to identify the names of these airports using the `inner_join` function in `dplyr`.
+
+```{r join}
+data("airports", package = "pnwflights14")
+joined_worst <- inner_join(worst_arr_delays, airports, by = c("dest" = "faa")) %>%
+  select(name, dest, mean_arr_delay) %>%
+  rename("Airport Name" = name, "Airport Code" = dest, "Mean Arrival Delay" = mean_arr_delay)
+```
+
+Lastly we output this table cleanly using the `kable` function.
+
+```{r kable}
+kable(joined_worst)
+```
+
+Oddly enough, flights to Cleveland (from PDX and SEA) had the worst arrival delays in 2014.  Houston also had around a 10 minute delay on average.  Surprisingly, the airport in Bellingham, WA (only around 100 miles north of SEA) had the fifth largest mean arrival delay.
+
+#### The DT package
+
+In order to answer the second question, we'll again make use of the various functions in the `dplyr` package.
+
+```{r get_by_month}
+dep_delays_by_month <- flights %>% group_by(origin, month) %>%
+summarize(max_delay = max(dep_delay, na.rm = TRUE))
+```
+
+The `DT` package provides a nice interface for viewing data frames in **R**.  I've specified a few extra options here to show all 12 months by default and to automatically set the width.  Go ahead and play around with the filter boxes at the top of each column too.  (An excellent tutorial on `DT` is available at <https://rstudio.github.io/DT/>.)
+
+```{r DT}
+datatable(dep_delays_by_month,
+          filter = 'top', options = list(
+            pageLength = 12, autoWidth = TRUE
+          ))
+```
+
+If you click on the `max_delay` column header, you should see that the maximum departure delay for PDX was in March and for Seattle was in May.
+
+
+
+#### The `xtable` package to produce nice tables in a PDF
+
+Again, we find ourselves using the extremely helpful `dplyr` package to answer this question and to create the underpinnings of our table to display.  We merge the flights data with the `airlines` data to get the names of the airlines from of the two letter carrier code.
+
+```{r question_3, warning = FALSE}
+data("airlines", package = "pnwflights14")
+by_airline <- flights %>% group_by(origin, carrier) %>%
+  summarize(count = n()) %>%
+  inner_join(x = ., y = airlines, by = "carrier") %>%
+  arrange(desc(count))
+```
+
+The `xtable` package and its `xtable` function (and also the `kable` function you saw earlier) provide the functionality to generate HTML code or $\LaTeX$ code to produce a table.  We will focus on producing the $\LaTeX$ code in this example.
+
+```{r xtable_first, results = "asis"}
+print(xtable(by_airline),
+      comment = FALSE)
+```
+
+If you don't know $\LaTeX$, I've also duplicated a similar table using `kable` for you to compare:
+
+```{r kable_airline}
+kable(by_airline)
+```
+
+With the originating airport duplicating across all of the airlines, it would be nice if we could reduce this duplication and just bold PDX or SEA and have it appear once.  Awesomely enough, the `rle` function in **R** will be of great help to us in this endeavor.  It counts how many times a value is repeated in a table.  We will then make a call to the `multirow` function in $\LaTeX$ in a sneaky way of pasting the appropriate text in addition to the `force` option for sanitizing the text into $\LaTeX$.
+
+We add in a few options to make the output of the table a little nicer by specifying horizontal lines and removing the default rownames.
+
+```{r rle, results = "asis"}
+rle.lengths <- rle(by_airline$origin)$lengths
+first <- !duplicated(by_airline$origin)
+by_airline$origin[!first] <- ""
+by_airline$origin[first] <- paste("\\multirow{", 
+                                  rle.lengths,
+                                  "}{*}{\\textbf{",
+                                  by_airline$origin[first], "}}")
+
+print(xtable(by_airline),
+              comment = FALSE,
+              hline.after=c(-1,0,nrow(by_airline), 11),
+              sanitize.text.function = force,
+              include.rownames = FALSE)
+```
+
+The resulting table produced by $\LaTeX$ is below and can be found at Overleaf.com at <https://www.overleaf.com/read/wvrpxpwrbvnk>.  
+
+![xtable Output](xtable.png)
+
+We see that Alaska Airlines had the most flights out of both airports with Southwest coming in second at both airports.
+
+(The generating R Markdown file for this HTML document---saved in the .Rmd extension---is available [here](http://reed.edu/data-at-reed/software/R/blogposts/tables_blogpost.Rmd).)
