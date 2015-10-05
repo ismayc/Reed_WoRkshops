@@ -184,6 +184,17 @@ pdx_flights %>% str()
 
 ---
 
+### Getting date in nice format
+```{r get_date}
+date_string <- paste0("2014-", 
+                      pdx_flights$month, "-", 
+                      pdx_flights$day)
+pdx_flights <- pdx_flights %>% 
+  mutate(day_of_year = lubridate::ymd(date_string))
+```
+
+---
+
 ## How do these "arriving early" flights vary by flight distance?
 
 ```{r get_early}
@@ -246,6 +257,7 @@ pdx_early_flights %>%
 
 ---
 
+<<<<<<< HEAD
 ### What about delays throughout the year?
 
 ---
@@ -262,6 +274,9 @@ pdx_early_flights <- pdx_early_flights %>%
 
 
 ---
+=======
+### Delays throughout the year
+>>>>>>> eaa1d2bb809379183533aec0c95cf091f3682d73
 
 ```{r by_date}
 pdx_early_flights %>% ggplot(aes(x = day_of_year, y = arr_delay)) +
