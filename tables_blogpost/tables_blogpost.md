@@ -106,12 +106,9 @@ datatable(dep_delays_by_month,
           ))
 ```
 
-<!--html_preserve--><div id="htmlwidget-3739" style="width:100%;height:auto;" class="datatables"></div>
-<script type="application/json" data-for="htmlwidget-3739">{"x":{"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"],["PDX","PDX","PDX","PDX","PDX","PDX","PDX","PDX","PDX","PDX","PDX","PDX","SEA","SEA","SEA","SEA","SEA","SEA","SEA","SEA","SEA","SEA","SEA","SEA"],[1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12],[346,380,1553,782,695,590,648,486,417,428,402,798,866,739,385,713,1449,377,815,886,452,713,397,733]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> </th>\n      <th>origin</th>\n      <th>month</th>\n      <th>max_delay</th>\n    </tr>\n  </thead>\n</table>","options":{"pageLength":12,"autoWidth":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,12,25,50,100]},"callback":null,"filter":"top","filterHTML":"<tr>\n  <td></td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"></span>\n    </div>\n  </td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"></span>\n    </div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1\" data-max=\"12\"></div>\n      <span style=\"float: left;\"></span>\n      <span style=\"float: right;\"></span>\n    </div>\n  </td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"></span>\n    </div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"346\" data-max=\"1553\"></div>\n      <span style=\"float: left;\"></span>\n      <span style=\"float: right;\"></span>\n    </div>\n  </td>\n</tr>"},"evals":[]}</script><!--/html_preserve-->
+The created table in HTML is available [here](http://www.reed.edu/data-at-reed/software/R/blogposts/DT.html).
 
 If you click on the `max_delay` column header, you should see that the maximum departure delay for PDX was in March and for Seattle was in May.
-
-
 
 #### The `xtable` package to produce nice tables in a PDF
 
@@ -221,42 +218,7 @@ print(xtable(by_airline),
               include.rownames = FALSE)
 ```
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{llrl}
-  \hline
-origin & carrier & count & name \\ 
-  \hline
-\multirow{ 11 }{*}{\textbf{ PDX }} & AS & 12844 & Alaska Airlines Inc. \\ 
-   & WN & 11193 & Southwest Airlines Co. \\ 
-   & OO & 9841 & SkyWest Airlines Inc. \\ 
-   & UA & 6061 & United Air Lines Inc. \\ 
-   & DL & 5168 & Delta Air Lines Inc. \\ 
-   & US & 2361 & US Airways Inc. \\ 
-   & AA & 2187 & American Airlines Inc. \\ 
-   & F9 & 1362 & Frontier Airlines Inc. \\ 
-   & B6 & 1287 & JetBlue Airways \\ 
-   & VX & 666 & Virgin America \\ 
-   & HA & 365 & Hawaiian Airlines Inc. \\ 
-   \hline
-\multirow{ 11 }{*}{\textbf{ SEA }} & AS & 49616 & Alaska Airlines Inc. \\ 
-   & WN & 12162 & Southwest Airlines Co. \\ 
-   & DL & 11548 & Delta Air Lines Inc. \\ 
-   & UA & 10610 & United Air Lines Inc. \\ 
-   & OO & 8869 & SkyWest Airlines Inc. \\ 
-   & AA & 5399 & American Airlines Inc. \\ 
-   & US & 3585 & US Airways Inc. \\ 
-   & VX & 2606 & Virgin America \\ 
-   & B6 & 2253 & JetBlue Airways \\ 
-   & F9 & 1336 & Frontier Airlines Inc. \\ 
-   & HA & 730 & Hawaiian Airlines Inc. \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-The resulting table produced by $\LaTeX$ is below and can be found at Overleaf.com at <https://www.overleaf.com/read/wvrpxpwrbvnk>.  
-
-![xtable Output](xtable.png)
+The resulting table produced by $\LaTeX$ can be found at Overleaf.com at <https://www.overleaf.com/read/wvrpxpwrbvnk>.  
 
 We see that Alaska Airlines had the most flights out of both airports with Southwest coming in second at both airports.
 

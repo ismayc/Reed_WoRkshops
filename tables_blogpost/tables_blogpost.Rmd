@@ -2,7 +2,6 @@
 output: 
   html_document:
     keep_md: true
-          
 ---
 
 One of the neat tools available via a variety of packages in **R** is the creation of beautiful tables using data frames stored in **R**.  In what follows, I'll discuss these different options using data on departing flights from Seattle and Portland in 2014.  (More information and the source code for this **R** package is available at <https://github.com/ismayc/pnwflights14>.)
@@ -89,16 +88,16 @@ summarize(max_delay = max(dep_delay, na.rm = TRUE))
 
 The `DT` package provides a nice interface for viewing data frames in **R**.  I've specified a few extra options here to show all 12 months by default and to automatically set the width.  Go ahead and play around with the filter boxes at the top of each column too.  (An excellent tutorial on `DT` is available at <https://rstudio.github.io/DT/>.)
 
-```{r DT}
+```{r DT, results = "hide"}
 datatable(dep_delays_by_month,
           filter = 'top', options = list(
             pageLength = 12, autoWidth = TRUE
           ))
 ```
 
+The created table in HTML is available [here](http://www.reed.edu/data-at-reed/software/R/blogposts/DT.html).
+
 If you click on the `max_delay` column header, you should see that the maximum departure delay for PDX was in March and for Seattle was in May.
-
-
 
 #### The `xtable` package to produce nice tables in a PDF
 
@@ -129,7 +128,7 @@ With the originating airport duplicating across all of the airlines, it would be
 
 We add in a few options to make the output of the table a little nicer by specifying horizontal lines and removing the default rownames.
 
-```{r rle, results = "asis"}
+```{r rle, results = "hide"}
 rle.lengths <- rle(by_airline$origin)$lengths
 first <- !duplicated(by_airline$origin)
 by_airline$origin[!first] <- ""
@@ -145,9 +144,7 @@ print(xtable(by_airline),
               include.rownames = FALSE)
 ```
 
-The resulting table produced by $\LaTeX$ is below and can be found at Overleaf.com at <https://www.overleaf.com/read/wvrpxpwrbvnk>.  
-
-![xtable Output](xtable.png)
+The resulting table produced by $\LaTeX$ can be found at Overleaf.com at <https://www.overleaf.com/read/wvrpxpwrbvnk>.  
 
 We see that Alaska Airlines had the most flights out of both airports with Southwest coming in second at both airports.
 
