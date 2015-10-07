@@ -60,7 +60,7 @@ worst_arr_delays <- flights %>% group_by(dest) %>%
   top_n(n = 5, wt = mean_arr_delay)
 ```
 
-This information is helpful but you may not necessarily know which airport each of these FAA airport codes refers to.  One of the other data sets included in the `pnwflights14` package is `airports` that lists the names.  Here we will do a match to identify the names of these airports using the `inner_join` function in `dplyr`.
+This information is helpful but you may not necessarily know to which airport each of these FAA airport codes refers.  One of the other data sets included in the `pnwflights14` package is `airports` that lists the names.  Here we will do a match to identify the names of these airports using the `inner_join` function in `dplyr`.
 
 ```{r join}
 data("airports", package = "pnwflights14")
@@ -101,7 +101,7 @@ If you click on the `max_delay` column header, you should see that the maximum d
 
 #### The `xtable` package to produce nice tables in a PDF
 
-Again, we find ourselves using the extremely helpful `dplyr` package to answer this question and to create the underpinnings of our table to display.  We merge the flights data with the `airlines` data to get the names of the airlines from of the two letter carrier code.
+Again, we find ourselves using the extremely helpful `dplyr` package to answer this question and to create the underpinnings of our table to display.  We merge the flights data with the `airlines` data to get the names of the airlines from the two letter carrier code.
 
 ```{r question_3, warning = FALSE}
 data("airlines", package = "pnwflights14")
@@ -124,7 +124,7 @@ If you don't know $\LaTeX$, I've also duplicated a similar table using `kable` f
 kable(by_airline)
 ```
 
-With the originating airport duplicating across all of the airlines, it would be nice if we could reduce this duplication and just bold PDX or SEA and have it appear once.  Awesomely enough, the `rle` function in **R** will be of great help to us in this endeavor.  It counts how many times a value is repeated in a table.  We will then make a call to the `multirow` function in $\LaTeX$ in a sneaky way of pasting the appropriate text in addition to the `force` option for sanitizing the text into $\LaTeX$.
+With the originating airport duplicating across all of the airlines, it would be nice if we could reduce this duplication and just bold PDX or SEA and have each appear once.  Awesomely enough, the `rle` function in **R** will be of great help to us in this endeavor.  It counts how many times a value is repeated in a table.  We will then make a call to the `multirow` function in $\LaTeX$ in a sneaky way of pasting the appropriate text in addition to using the `force` option for sanitizing the text into $\LaTeX$.
 
 We add in a few options to make the output of the table a little nicer by specifying horizontal lines and removing the default rownames.
 
