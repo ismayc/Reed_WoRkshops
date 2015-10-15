@@ -49,7 +49,7 @@ We can reference values stored in R directly in your text.
 
 **Something like this:**
 
-We have determined that (of the top 1000 names) in `r entered_year`, there were `r formatC(result, format = "d", big.mark = ',')` babies born in the US with the first name '`r entered_name`'.
+We have determined that (of the top 1000 names) in `r entered_year`, there were `r format(result, big.mark = ',')` babies born in the US with the first name '`r entered_name`'.
 
 Additionally, we can produce output conditional on results using the `ifelse` function in R:
 
