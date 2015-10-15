@@ -68,35 +68,37 @@ img {
 </div>
 
 
-<p>Notice that the data is called <code>names</code> above when we load it from the <code>babynames</code> package, but you will receive an error if you try to use <code>names</code> as your data frame before the <code>%&gt;%</code>. This is just a quirk with how Hadley labeled things.</p>
+<p>The <code>babynames</code> data comes from the Social Security Administration and gives information about the Top 1000 names given to children in the USA since 1880 (<a href="http://www.ssa.gov/oact/babynames/limits.html" class="uri">http://www.ssa.gov/oact/babynames/limits.html</a>). Notice that the data is called <code>names</code> above when we load it from the <code>babynames</code> package, but you will receive an error if you try to use <code>names</code> as your data frame before the <code>%&gt;%</code>. This is just a quirk with how Hadley labeled things.</p>
 <div id="problem" class="section level4">
 <h4>Problem</h4>
-<p>Identify how many people were born with <strong>parameterized first name</strong> (Jack) in the US in <strong>paramaterized year</strong> (1985).</p>
+<p>Identify how many people were born with <strong>parameterized first name</strong> (Doug) in the US in <strong>paramaterized year</strong> (1950).</p>
 <pre class="r"><code>entered_name &lt;- params$name
 entered_year &lt;- params$year
 result &lt;- babynames %&gt;% filter(name == entered_name) %&gt;%
   filter(year == entered_year) %&gt;%
-  summarize(count = n())
+  summarize(count = sum(n))
 result</code></pre>
 <pre><code>## Source: local data frame [1 x 1]
 ## 
 ##   count
 ##   (int)
-## 1     2</code></pre>
+## 1   181</code></pre>
 <p>We can reference values stored in R directly in your text.</p>
 <p><strong>Something like this:</strong></p>
-<p>We have determined that (of the top 1000 names) in 1985 there were 2 babies born in the US with the first name Jack.</p>
+<p>We have determined that (of the top 1000 names) in 1950, there were 181 babies born in the US with the first name Doug.</p>
 <p>Additionally, we can produce output conditional on results using the <code>ifelse</code> function in R:</p>
 <p>The name you entered was not very popular in that year.</p>
-<p><strong>One more tweak</strong>:</p>
-<p>The name ‘Jack’ was not very popular in 1985.</p>
+<p><strong>One more tweak</strong>: You can use the <code>paste0</code> function to create a sentence based on values.</p>
+<p>The name ‘Doug’ was not very popular in 1950.</p>
 </div>
-<div id="try-this" class="section level1">
-<h1>Try this!</h1>
-<pre class="r"><code>names_array &lt;- c(&quot;Jack&quot;, &quot;Jill&quot;, &quot;Tom&quot;, &quot;Mary&quot;)
-years_array &lt;- rep(1985, length(names_array))
+<div id="try-this" class="section level3">
+<h3>Try this!</h3>
+<p>You’ll need to <code>Run Current Chunk</code> here to get the desired output.</p>
+<pre class="r"><code>names_array &lt;- c(&quot;Hayden&quot;, &quot;Justin&quot;, &quot;Doug&quot;, &quot;Mary&quot;)
+years_array &lt;- rep(1950, times = length(names_array))
+rm(params)
 for(i in 1:length(names_array)){
-rmarkdown::render(&quot;babynames_parameterized.Rmd&quot;, 
+  rmarkdown::render(&quot;babynames_parameterized.Rmd&quot;, 
                   params = list(name = names_array[i], year = years_array[i]),
                   output_dir = &quot;results&quot;,
                   output_file = paste0(names_array[i], &quot;_&quot;, years_array[i], &quot;.html&quot;)

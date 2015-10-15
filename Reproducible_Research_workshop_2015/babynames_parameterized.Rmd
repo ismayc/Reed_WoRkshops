@@ -41,7 +41,7 @@ entered_name <- params$name
 entered_year <- params$year
 result <- babynames %>% filter(name == entered_name) %>%
   filter(year == entered_year) %>%
-  summarize(count = n())
+  summarize(count = sum(n))
 result
 ```
 
@@ -49,23 +49,26 @@ We can reference values stored in R directly in your text.
 
 **Something like this:**
 
-We have determined that (of the top 1000 names) in `r entered_year`, there were `r result` babies born in the US with the first name `r entered_name`.
+We have determined that (of the top 1000 names) in `r entered_year`, there were `r formatC(result, format = "d", big.mark = ',')` babies born in the US with the first name `r entered_name`.
 
 Additionally, we can produce output conditional on results using the `ifelse` function in R:
 
-`r ifelse(result < 5, "The name you entered was not very popular in that year.", "")`
+`r ifelse(result < 500, "The name you entered was not very popular in that year.", "")`
 
-**One more tweak**:
+**One more tweak**:  You can use the `paste0` function to create a sentence based on values.
 
-`r ifelse(result < 5, paste0("The name '", entered_name, "' was not very popular in ", entered_year, "."), "What a popular name!")`
+`r ifelse(result < 500, paste0("The name '", entered_name, "' was not very popular in ", entered_year, "."), "What a popular name!")`
 
-### Try this!  Make sure to comment out lines 6-8 above in the Rmd file before running this chunk.
+### Try this!
 
-```{r try_this, eval=FALSE}
-names_array <- c("Jack", "Jill", "Tom", "Mary")
-years_array <- rep(1985, length(names_array))
+You'll need to `Run Current Chunk` here to get the desired output.
+
+```{r try_this, eval = FALSE}
+names_array <- c("Hayden", "Justin", "Doug", "Mary")
+years_array <- rep(1950, times = length(names_array))
+rm(params)
 for(i in 1:length(names_array)){
-rmarkdown::render("babynames_parameterized.Rmd", 
+  rmarkdown::render("babynames_parameterized.Rmd", 
                   params = list(name = names_array[i], year = years_array[i]),
                   output_dir = "results",
                   output_file = paste0(names_array[i], "_", years_array[i], ".html")
