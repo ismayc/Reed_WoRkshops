@@ -72,7 +72,7 @@ entered_name <- "Jack"
 entered_year <- 2010
 result <- babynames %>% filter(name == entered_name) %>%
   filter(year == entered_year) %>%
-  summarize(count = n())
+  summarize(count = sum(n))
 result
 ```
 

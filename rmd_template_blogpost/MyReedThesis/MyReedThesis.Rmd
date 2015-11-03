@@ -1,0 +1,91 @@
+---
+author: 'Your R. Name'
+date: 'May 20xx'
+division: 'Mathematics and Natural Sciences'
+advisor: 'Advisor F. Name'
+department: 'Mathematics'
+title: 'My Final College Paper'
+abstract: >
+  "`r paste(readLines('abstract.Rmd'), collapse = '\n')`"
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  Note that a tab is # needed on the line after the >.
+acknowledgements: >
+  I want to thank a few people.
+dedication: >
+  You can have a dedication here if you wish. 
+preface: >
+  This is an example of a thesis setup to use the reed thesis document class.
+bibliography: bib/thesis.bib
+# Download your specific bibliography database file and refer to it in the line above.
+csl: csl/apa.csl
+# Download your specific csl file and refer to it in the line above.
+output: 
+  rticles::reed_thesis:
+    toc: true
+lot: true
+lof: true
+#header-includes:
+#- \usepackage{tikz}
+---
+
+<!--
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the document.  Be careful with spacing in this header!
+
+If you'd prefer to not include a Dedication, for example, simply delete lines 12 and 13 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+
+If you'd like to include a comment that won't be produced in your resulting PDF file enclose it in a block like this.
+-->
+
+```{r include_rticles, include = FALSE}
+# This chunk ensures that the rticles package is installed and loaded
+# This rticles package includes the template files for the thesis and also
+# two functions used for labeling and referencing
+if(!require(devtools))
+  install.packages("devtools", repos = "http://cran.rstudio.com")
+if(!require(rticles)){
+  library(devtools)
+  devtools::install_github("ismayc/rticles")
+  }
+library(rticles)
+```
+
+<!--
+This is the way to split your thesis into chapters and then include each of the chapters seperately.  You can Knit the Rmd files corresponding to each chapter individually and then put them all back together by Knit-ing this document.
+
+This is an R chunk and chap0.Rmd refers to the Introductory chapter.  Feel free to name this file as something else, but don't forget to change the argument to in `child = ` below!
+-->
+
+```{r intro, child = 'chap0.Rmd'}
+```
+
+<!--
+This is for including Chapter 1.  Notice that it's also good practice to name your chunk.  This will help you debug potential issues as you knit.  The chunk above is called intro and the one below is called chapter1.  Feel free to change the name of the Rmd file as you wish, but don't forget to change it here from chap1.Rmd.
+-->
+
+```{r chapter1, child = 'chap1.Rmd'}
+```
+
+<!--
+Immediately below is the chunk for Chapter 2.
+--> 
+
+```{r chapter2, child = 'chap2.Rmd'}
+```
+
+```{r chapter3, child = 'chap3.Rmd'}
+```
+
+<!--
+Add other chunks here for other chapters in your thesis.  Note that if you use the `child =` parameter, you can't include anything else in your chunk.
+-->
+
+```{r conclusion, child = 'conclusion.Rmd'}
+```
+
+<!--
+The bib chunk below must go last in this document according to how R Markdown renders.  More info is at http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html
+-->
+
+```{r bib, child = 'bibliography.Rmd'}
+```
+
