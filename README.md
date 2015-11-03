@@ -1,3 +1,3 @@
-# Reed_WoRkshops
+# Reed WoRkshops
 
-This includes files on R Workshops and presentations I have led/given at Reed College.
+This includes files on R Workshops, presentations, and blogposts I have done at Reed College.
