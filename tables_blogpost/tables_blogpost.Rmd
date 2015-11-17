@@ -111,20 +111,20 @@ by_airline <- flights %>% group_by(origin, carrier) %>%
   arrange(desc(count))
 ```
 
-The `xtable` package and its `xtable` function (and also the `kable` function you saw earlier) provide the functionality to generate HTML code or $\LaTeX$ code to produce a table.  We will focus on producing the $\LaTeX$ code in this example.
+The `xtable` package and its `xtable` function (and also the `kable` function you saw earlier) provide the functionality to generate HTML code or $\\\LaTeX$ code to produce a table.  We will focus on producing the $\\\LaTeX$ code in this example.
 
 ```{r xtable_first, results = "asis"}
 print(xtable(by_airline),
       comment = FALSE)
 ```
 
-If you don't know $\LaTeX$, I've also duplicated a similar table using `kable` for you to compare:
+If you don't know $\\\LaTeX$, I've also duplicated a similar table using `kable` for you to compare:
 
 ```{r kable_airline}
 kable(by_airline)
 ```
 
-With the originating airport duplicating across all of the airlines, it would be nice if we could reduce this duplication and just bold PDX or SEA and have each appear once.  Awesomely enough, the `rle` function in **R** will be of great help to us in this endeavor.  It counts how many times a value is repeated in a table.  We will then make a call to the `multirow` function in $\LaTeX$ in a sneaky way of pasting the appropriate text in addition to using the `force` option for sanitizing the text into $\LaTeX$.
+With the originating airport duplicating across all of the airlines, it would be nice if we could reduce this duplication and just bold PDX or SEA and have each appear once.  Awesomely enough, the `rle` function in **R** will be of great help to us in this endeavor.  It counts how many times a value is repeated in a table.  We will then make a call to the `multirow` function in $\\\LaTeX$ in a sneaky way of pasting the appropriate text in addition to using the `force` option for sanitizing the text into $\\\LaTeX$.
 
 We add in a few options to make the output of the table a little nicer by specifying horizontal lines and removing the default rownames.
 
@@ -144,7 +144,7 @@ print(xtable(by_airline),
               include.rownames = FALSE)
 ```
 
-The resulting table produced by $\LaTeX$ can be found at Overleaf.com at <https://www.overleaf.com/read/wvrpxpwrbvnk>.  
+The resulting table produced by $\\$\\\LaTeX$$ can be found at Overleaf.com at <https://www.overleaf.com/read/wvrpxpwrbvnk>.  
 
 We see that Alaska Airlines had the most flights out of both airports with Southwest coming in second at both airports.
 
