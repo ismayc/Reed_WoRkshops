@@ -1,0 +1,8 @@
+revealjs::revealjs_presentation:
+    incremental: true
+    theme: beige
+#    theme: black
+    highlight: zenburn
+    center: true
+    fig_width: 9
+    fig_height: 5

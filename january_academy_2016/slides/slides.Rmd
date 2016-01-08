@@ -1,0 +1,277 @@
+
+
+```{r set-options, include=FALSE, message=FALSE}
+pkg <- c("dplyr", "ggplot2", "shiny")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+if(!require(revealjs)){
+  library(devtools)
+  devtools::install_github("jjallaire/revealjs")
+}
+
+library(dplyr)
+library(ggplot2)
+library(revealjs)
+library(shiny)
+options(width = 70)
+```
+
+# Statistical Graphics
+
+<p>
+
+## <i> The Good, The Bad, and The Misleading </i>
+
+</p>
+
+<br>
+
+### January Academy 2016
+
+<br>
+
+Chester Ismay
+
+Office: ETC 223
+
+cismay@reed.edu
+
+http://blogs.reed.edu/datablog
+
+http://blogs.reed.edu/ed-tech
+
+---
+
+## Describe what you see when analyzing the summary information
+
+```{r anscombe, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+library(ggvis)
+library(knitr)
+# library(shiny)
+anscombe <- as.data.frame(anscombe)
+anscombereorder <- anscombe[, c(1, 5, 2, 6, 3, 7, 4, 8)]
+```
+
+
+```{r echo=FALSE}
+anscombelong <- data.frame(x = unlist(anscombe[, 1:4]), y = unlist(anscombe[, 
+    5:8]), datasource = rep(1:4, each = 11))
+kable(anscombelong %>% group_by(datasource) %>% summarise(`x-mean` = mean(x), 
+    `y-mean` = mean(y), `x-stdev` = sd(x), `y-stdev` = sd(y), `correlation-xy` = cor(x, 
+        y)), table.attr = "cellpadding=\"3\"", format = "html", row.names = FALSE)
+```
+
+<p>
+
+- What do you think the plots of `x` versus `y` look like for the four datasets?
+
+</p>
+
+---
+
+## What do you see in the raw data?
+
+Data is in pairs (`x1` goes with `y1`, `x2` goes with `y2`, etc.)
+
+```{r echo=FALSE}
+kable(anscombereorder, format = "html")
+```
+
+---
+
+## Visualizing this data
+
+```{r echo=FALSE, warning=FALSE}
+# http://stackoverflow.com/questions/7549694/ggplot2-adding-regression-line-equation-and-r2-on-graph 
+lm_eqn <- function(m) {
+  l <- list(a = format(coef(m)[1], digits = 2),
+      b = format(abs(coef(m)[2]), digits = 2),
+      r2 = format(summary(m)$r.squared, digits = 3));
+
+  if (coef(m)[2] >= 0)  {
+    eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
+  } else {
+    eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l)    
+  }
+
+  as.character(as.expression(eq));                 
+}
+
+ggplot(anscombelong,aes(x=x,y=y))+geom_point()+geom_smooth(method="lm",se=FALSE)+annotate("text", x = 12, y = 4, label = lm_eqn(lm(y ~ x, anscombelong)), color="black",  
+  parse = TRUE)+ylim(3,13)+xlim(4,19)+facet_wrap(~datasource)+theme(legend.position="none")+theme_bw()
+```
+
+<p>
+
+- What have you learned from visualizing the data?
+
+</p>
+
+---
+
+## Why are graphics a valuable way to understand data?
+
+- Spreadsheets (raw data) are hard to visualize
+- Humans have an incredible ability to detect patterns through visual observation 
+- Outliers can be spotted easily and looked into further
+- Pictures can more easily create stories than raw data
+
+---
+
+# Common graphs and <br> their uses
+
+## Hopefully, The Good
+
+---
+
+## REVIEW:  Variable types
+
+- Quantitative (Numeric) 
+    * It is sensible to add, subtract, or take averages of the data values
+    * <i>Continuous</i> - numerical values in a range (fractions and decimals included)
+    * <i>Discrete</i> - numerical values with jumps (usually counts)
+- Qualitative (Categorical)
+    * Values designated by different groupings/categories (usually not numeric)
+
+---
+
+### Histograms
+
+```{r echo=FALSE, fig.height=2}
+iris %>% ggplot(aes(Sepal.Length)) + 
+  geom_histogram(binwidth = 0.5, fill = "darkseagreen", colour = "black")
+```
+
+- One continuous variable
+- Shows how many values are in different bins
+- Questions to ask:
+    * What is the shape? (Symmetric, skewed, etc.)
+    * How many peaks are there? (Unimodal, bimodal, etc.)
+    * How do the values _vary_?
+
+---
+
+### Bar plot
+
+```{r echo=FALSE, fig.height=3}
+iris %>% ggplot(aes(Species)) + 
+  geom_bar(fill = "darkorange")
+```
+
+- One categorical variable
+- Visual representation of a table
+- Question to ask:
+    * How do the heights of the bars compare? 
+        * Which is largest? Smallest?
+
+---
+
+### Side-by-side Boxplots
+
+```{r echo=FALSE, fig.height=3}
+iris %>% ggplot(aes(x=Species, y=Sepal.Length)) + geom_boxplot(aes(fill=Species)) +
+  coord_flip()
+```
+
+- One continuous variable versus one categorical variable
+- Vertical bars represent quantiles
+- Dots represent outliers
+
+---
+
+### Side-by-side Barplots
+
+```{r echo=FALSE, fig.height=3}
+diamonds %>% ggplot(aes(clarity, fill=cut)) + geom_bar(position = "dodge", colour = "black")
+```
+
+- Two categorical variables
+- Vertical bars represent counts in levels of each variable
+
+---
+
+### Scatterplots
+
+```{r echo=FALSE, fig.height=3}
+diamonds %>% ggplot(aes(x = carat, y = price)) +
+  geom_point()
+```
+
+- Two continuous variables
+- Questions to ask:
+    * _Pattern_ - Positive/No/Negative relation
+    * _Form_ - Linear/Non-linear
+    * _Strength_ - Closely matches fitted line?
+
+---
+
+# The Bad
+
+---
+
+### What's wrong?
+
+![bad](slides-figure/mykland_fig1.jpg)
+
+---
+
+### It's easy to lie...
+
+- What are the limits of the axis/axes? Is the scale consistent?
+- How do the height and width of the graph compare to each other?
+- Are there two x- or y-axes in the same graph? If so, do they have
+the same scale?
+- Can you get a feel for the raw data? The number of data points?
+- Does a graph of a continuous variable show outliers? Does the
+data look too "pretty"?
+
+<br>
+
+> - Via Theresa A Scott (Vanderbilt University)
+
+---
+
+# The Misleading
+
+---
+
+<img src="slides-figure/obama_fox.jpg" alt="obama_fox" style="width: 1000px;"/>
+
+---
+
+## What can I help you with?
+
+> - Data analysis
+> - Data wrangling/cleaning
+> - Data visualization
+> - Data tidying/manipulating
+> - Reproducible research
+
+--- 
+
+## When am I available?
+
+> - Email me at cismay@reed.edu or chester.ismay@reed.edu
+> - Tentative office (ETC 223) hours
+>     - Mondays (10 AM to 11 AM)
+>     - Tuesdays (2 PM to 3 PM)
+>     - Wednesdays (1:30 PM to 2:30 PM)
+>     - Fridays (1:30 PM to 2:30 PM)
+> - Sometimes available for virtual office hours via Google Hangouts (email me for details)
+
+---
+
+# Thanks! <br /> <br />
+
+## cismay@reed.edu 
+
+<br /> <br />
+
+Slides available at <http://rpubs.com/cismay/january_academy_2016>
