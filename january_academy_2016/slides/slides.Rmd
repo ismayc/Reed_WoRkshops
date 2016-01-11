@@ -1,5 +1,4 @@
 
-
 ```{r set-options, include=FALSE, message=FALSE}
 pkg <- c("dplyr", "ggplot2", "shiny")
 
@@ -18,6 +17,7 @@ library(dplyr)
 library(ggplot2)
 library(revealjs)
 library(shiny)
+
 options(width = 70)
 ```
 
@@ -76,36 +76,37 @@ kable(anscombelong %>% group_by(datasource) %>% summarise(`x-mean` = mean(x),
 
 ---
 
-## What do you see in the raw data?
-
-Data is in pairs (`x1` goes with `y1`, `x2` goes with `y2`, etc.)
-
-```{r echo=FALSE}
-kable(anscombereorder, format = "html")
-```
-
----
-
 ## Visualizing this data
 
 ```{r echo=FALSE, warning=FALSE}
 # http://stackoverflow.com/questions/7549694/ggplot2-adding-regression-line-equation-and-r2-on-graph 
-lm_eqn <- function(m) {
+lm_eqn <- function(m){
   l <- list(a = format(coef(m)[1], digits = 2),
-      b = format(abs(coef(m)[2]), digits = 2),
-      r2 = format(summary(m)$r.squared, digits = 3));
-
-  if (coef(m)[2] >= 0)  {
-    eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
-  } else {
-    eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l)    
+    b = format(abs(coef(m)[2]), digits = 2),
+    r2 = format(summary(m)$r.squared, digits = 3));
+  
+  if (coef(m)[2] >= 0){
+    eq <- substitute(italic(y) == a + b %.%
+        italic(x)*","~~italic(r)^2~"="~r2, l)
+  }else{
+    eq <- substitute(italic(y) == a - b %.%
+        italic(x)*","~~italic(r)^2~"="~r2, l)    
   }
-
+  
   as.character(as.expression(eq));                 
 }
 
-ggplot(anscombelong,aes(x=x,y=y))+geom_point()+geom_smooth(method="lm",se=FALSE)+annotate("text", x = 12, y = 4, label = lm_eqn(lm(y ~ x, anscombelong)), color="black",  
-  parse = TRUE)+ylim(3,13)+xlim(4,19)+facet_wrap(~datasource)+theme(legend.position="none")+theme_bw()
+anscombelong %>% ggplot(aes(x = x,y = y)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  annotate("text", x = 12, y = 4, 
+    label = lm_eqn(lm(y ~ x, anscombelong)), color="black",  
+    parse = TRUE) + 
+  ylim(3, 13) + 
+  xlim(4, 19) + 
+  facet_wrap(~datasource) + 
+  theme(legend.position="none") + 
+  theme_bw()
 ```
 
 <p>
@@ -116,12 +117,61 @@ ggplot(anscombelong,aes(x=x,y=y))+geom_point()+geom_smooth(method="lm",se=FALSE)
 
 ---
 
+## The raw Anscombe's Quartet data
+
+Data is in pairs (`x1` goes with `y1`, `x2` goes with `y2`, etc.)
+
+```{r echo=FALSE}
+kable(anscombereorder, format = "html")
+```
+
+---
 ## Why are graphics a valuable way to understand data?
 
 - Spreadsheets (raw data) are hard to visualize
 - Humans have an incredible ability to detect patterns through visual observation 
 - Outliers can be spotted easily and looked into further
 - Pictures can more easily create stories than raw data
+
+---
+
+# The Bad
+
+---
+
+### What's wrong?
+
+![bad](slides-figure/mykland_fig1.jpg)
+
+---
+
+### What's wrong?
+
+<img src="slides-figure/3dbar_labels.png" alt="bad2" style="width: 1000px;"/>
+
+---
+
+### It's easy to lie...
+
+- What are the limits of the axis/axes? Is the scale consistent?
+- How do the height and width of the graph compare to each other?
+- Are there two x- or y-axes in the same graph? If so, do they have
+the same scale?
+- Can you get a feel for the raw data? The number of data points?
+- Does a graph of a continuous variable show outliers? Does the
+data look too "pretty"?
+
+<br>
+
+> - Via Theresa A Scott (Vanderbilt University)
+
+---
+
+# The Misleading
+
+---
+
+<img src="slides-figure/obama_fox.jpg" alt="obama_fox" style="width: 1000px;"/>
 
 ---
 
@@ -212,37 +262,18 @@ diamonds %>% ggplot(aes(x = carat, y = price)) +
 
 ---
 
-# The Bad
+
+
+# Data Visualization Examples <br> on the Web
 
 ---
 
-### What's wrong?
+## Links
 
-![bad](slides-figure/mykland_fig1.jpg)
-
----
-
-### It's easy to lie...
-
-- What are the limits of the axis/axes? Is the scale consistent?
-- How do the height and width of the graph compare to each other?
-- Are there two x- or y-axes in the same graph? If so, do they have
-the same scale?
-- Can you get a feel for the raw data? The number of data points?
-- Does a graph of a continuous variable show outliers? Does the
-data look too "pretty"?
-
-<br>
-
-> - Via Theresa A Scott (Vanderbilt University)
-
----
-
-# The Misleading
-
----
-
-<img src="slides-figure/obama_fox.jpg" alt="obama_fox" style="width: 1000px;"/>
+> 1. [Think with Google - Travel Trends](https://www.thinkwithgoogle.com/category-trends/travel-air-q4-2015.html#utm_source=Twitter&utm_medium=social&utm_campaign=Think)
+> 2. [Palo Alto Maintenance Requests](http://data.cityofpaloalto.org/dashboards/8677/paloalto311-requests-by-type/)
+> 3. [The Science of Social Timing](https://blog.kissmetrics.com/science-of-social-timing-1/)
+> 4. [Data Visualization Catalogue](http://www.datavizcatalogue.com/)
 
 ---
 
@@ -259,7 +290,7 @@ data look too "pretty"?
 ## When am I available?
 
 > - Email me at cismay@reed.edu or chester.ismay@reed.edu
-> - Tentative office (ETC 223) hours
+> - Tentative Spring 2016 office (ETC 223) hours
 >     - Mondays (10 AM to 11 AM)
 >     - Tuesdays (2 PM to 3 PM)
 >     - Wednesdays (1:30 PM to 2:30 PM)
@@ -274,4 +305,4 @@ data look too "pretty"?
 
 <br /> <br />
 
-Slides available at <http://rpubs.com/cismay/january_academy_2016>
+Slides available at <http://rpubs.com/cismay/ja_2016>

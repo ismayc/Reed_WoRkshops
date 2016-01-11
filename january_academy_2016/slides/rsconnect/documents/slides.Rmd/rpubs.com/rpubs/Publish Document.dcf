@@ -1,9 +1,7 @@
 name: Publish Document
 account: rpubs
 server: rpubs.com
-appId:
-        https://api.rpubs.com/api/v1/document/115827/3e17168f5fc84d85be067e028bad5be3
-bundleId:
-        https://api.rpubs.com/api/v1/document/115827/3e17168f5fc84d85be067e028bad5be3
-url: http://rpubs.com/cismay/115827
-when: 1444066193.41718
+appId: https://api.rpubs.com/api/v1/document/142417/8099856785764f7aa2f925f8abe11179
+bundleId: https://api.rpubs.com/api/v1/document/142417/8099856785764f7aa2f925f8abe11179
+url: http://rpubs.com/publish/claim/142417/e29313c423a242e0b445b2a22fbedc0a
+when: 1452536439.62676
