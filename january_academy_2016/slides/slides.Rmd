@@ -270,10 +270,11 @@ diamonds %>% ggplot(aes(x = carat, y = price)) +
 
 ## Links
 
-> 1. [Think with Google - Travel Trends](https://www.thinkwithgoogle.com/category-trends/travel-air-q4-2015.html#utm_source=Twitter&utm_medium=social&utm_campaign=Think)
-> 2. [Palo Alto Maintenance Requests](http://data.cityofpaloalto.org/dashboards/8677/paloalto311-requests-by-type/)
-> 3. [The Science of Social Timing](https://blog.kissmetrics.com/science-of-social-timing-1/)
-> 4. [Data Visualization Catalogue](http://www.datavizcatalogue.com/)
+> - [Where Are the Hardest Places to Live in the U.S.?](http://www.nytimes.com/2014/06/26/upshot/where-are-the-hardest-places-to-live-in-the-us.html?_r=0)
+> - [Think with Google - Travel Trends](https://www.thinkwithgoogle.com/category-trends/travel-air-q4-2015.html#utm_source=Twitter&utm_medium=social&utm_campaign=Think)
+> - [Palo Alto Maintenance Requests](http://data.cityofpaloalto.org/dashboards/8677/paloalto311-requests-by-type/)
+> - [The Science of Social Timing](https://blog.kissmetrics.com/science-of-social-timing-1/)
+> - [Data Visualization Catalogue](http://www.datavizcatalogue.com/)
 
 ---
 
