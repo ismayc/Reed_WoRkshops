@@ -209,7 +209,7 @@ Source:  [Census.gov](http://www2.census.gov/geo/maps/dc10_thematic/2010_Nightti
     * $H_0: \mu_s = \mu_n$ or $H_0: \mu_s - \mu_n = 0$ 
 - What's the <u>alternative hypothesis</u> ($H_a$)?    
     * The average `leniency` score is higher for smiling students than it is for students with a neutral facial expression.
-    * $H_a: \mu_s > \mu_n$ or $H_a: \mu_s - \mu_n = 0$ 
+    * $H_a: \mu_s > \mu_n$ or $H_a: \mu_s - \mu_n > 0$ 
     
 ---
 
