@@ -228,7 +228,7 @@ hist(x)
 
 ---
 
-## Using the old $\LaTeX\,$ template
+## Using predefined templates
 
 - The actual PDF that is produced via RMarkdown uses the existing $\LaTeX\,$ template
     - This is to keep the formatting to match what has been approved
@@ -236,8 +236,13 @@ hist(x)
     - Except for entering equations like $Y = mX + b$ which requires you to use the dollar signs
     - For example, `$Y = mX + b$`
 
+---
+
 # Demo of getting <br> the template <br> up-and-running
 
+(Following along with blog [here](http://blogs.reed.edu/ed-tech/2015/11/r-markdown-senior-thesis-template/))
+
+---
 
 # What can I help you with?
 
