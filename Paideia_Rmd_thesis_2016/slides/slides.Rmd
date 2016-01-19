@@ -1,250 +1,19 @@
 ---
-title: "The Brand New RMarkdown <br> Senior Thesis Template!"
+title: "Interactive Data Visualization"
 author: "<br> Chester Ismay (cismay@reed.edu) <br>"
-date: "Paideia 2k16 <br><br> Slides available at <http://rpubs.com/cismay/paideia_2k16_rmd>"
+date: "Paideia 2k16 <br><br> Slides available at <http://rpubs.com/cismay/paideia_2k16_idv>"
 ---
 
-# Why this template was needed
+<!-- When we think about data visualization, we often think of a static plot with some colors and points.  New tools (spearheaded by Hans Rosling's Gapminder project) are constantly being developed to allow us to interact dynamically with data visualizations.  I'll discuss a variety of different tools that attempt to make data come to life!
 
-```{r set-options, include=FALSE, message=FALSE}
-pkg <- c("dplyr", "ggplot2", "knitr", "readr")
+All too often statistics is thought of as a boring subject with boring plots.  New software packages and tools are being developed to better understand the relationships between variables.  I'll demonstrate a lot of these different tools and packages using the R computing language.  We'll go through a variety of different examples from multiple fields to better understand anomalies and trends in data.
+-->
 
-new.pkg <- pkg[!(pkg %in% installed.packages())]
-
-if (length(new.pkg)) {
-  install.packages(new.pkg, repos = "http://cran.rstudio.com")
-}
-
-if(!require(revealjs)){
-  library(devtools)
-  devtools::install_github("jjallaire/revealjs")
-}
-
-library(dplyr)
-library(ggplot2)
-library(revealjs)
-library(knitr)
-library(readr)
-
-options(width = 70)
-```
-
-<style type="text/css">
-  /* I'm cheating here. The ioslides pipeline wants to treat every h1 and h2
-     in a special way, so I can't demo what they look like as a part of a page.
-     I'm just emulating it here.*/
-  #faux-h1 {
-    font-size: 1.5em; margin: .67em 0;
-  }
-  
-  #faux-h2 {
-    font-size: 1.2em; margin: .75em 0;
-  }
-  
-  #questions {
-    text-align: center;
-    font-size: 2em;
-    padding-top: 1em;
-    padding-bottom: 2em;
-  }
-  
-  #wrap {
-   width:850px;
-   margin:0 auto;
-  }
- 
-  #left_col {
-   float:left;
-   width:500px;
-  }
-  
-  #right_col {
-   float:right;
-   width:350px;
-  }
-     
-</style>
+## Why this template was needed
 
 ---
 
-## Traditional approach to writing a senior thesis <br> involving statistical analysis
-
-### The dreaded copy-and-paste
-
-> - Import data set into statistical software package
-> - Run the procedure to get results
-> - Copy and paste appropriate pieces from the analysis into document editor
-> - Add descriptions
-> - Finish/submit report
-
----
-
-## Disadvantages of this process
-
-- Lots of manual work (prone to make errors)
-- Tedious (who likes to carefully copy-and-paste?)
-- Likely not recordable (did you write down all the steps you followed to get your analysis?)
-- What if you made an error at the beginning of your analysis?  If your data had an error?
-
----
-
-# Reproducible research
-
----
-
-> "**Reproducible research** is the idea that data analyses, and more generally, scientific claims, are published with their data and software code so that others may verify the findings and build upon them."
-
- > - Roger Peng, Johns Hopkins
-
----
-
-## Why would reproducible research be <br> of value with senior theses?
-
-- Updating your code at the very beginning has little impact on all of your analysis throughout the rest of the document
-- Helps you remember how you performed your analysis YEARS down the road
-- Gets you prepared for submitting journal articles that may require revisions
-- Assists in others building off/from your work
-- Tech companies are moving more and more towards reproducible research/analysis to help with employee turnover
-
----
-
-
-> "Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do." 
-
-  > - Donald Knuth, _Literate Programming_ (1984)
-
----
-
-## What is Markdown?
-
- - A "plaintext formatting syntax"
- - Type in plain text, render to more complex formats
- - One step beyond writing a `txt` file
- - Render to HTML, PDF, etc.
-
-
----
-
-## What does it look like?
-
-<div id="wrap">
-  <div id="left_col">
-
-```
-  # Header 1
-  
-  ## Header 2
-  
-  Normal paragraphs of text go here.
-  
-  
-  **I'm bold**
-  
-  [links!](http://rstudio.com)
-  
-   * Unordered
-   * Lists   
-   
-  And  Tables
-  ---- -------
-  Like This
-  
-```
-
-</div>
-
-  <div id="right_col">
-  <img src="figure/markdown.png" alt="markdown" style="width: 350px;"/>
-  </div>
-</div>
-
----
-
-## What is RMarkdown?
-  
->- "Literate programming"
->- Embed R code in a Markdown document
->- Renders textual output along with graphics
-
-<div style="height: 15px"></div>
-
-<hr />
-
-<div style="height: 15px"></div>
-
-<!-- Sorry for this hack. I couldn't figure out how to put three backticks in 
-    an Rmd without it getting interpreted as a break for <code>, so I have 
-    0-width unicode spaces between these inner backticks. Ace (RStudio) will 
-    show them as red-dots. Other editors may not. -->
-
-<div id="wrap">    
-  <div id="left_col">
-
-```
-```{r}
-x <- rnorm(100)
-length(x)
-hist(x)
-```
-```
-  </div>
-
-<div id="right_col">
-
-```{r, fig.width=4, fig.height=3, echo=FALSE}
-x <- rnorm(100)
-length(x)
-hist(x)
-```
-
-  </div>
-
-</div>
-
----
-
-## But then I have to learn R...
-
----
-
-## Tools to make working with R friendly
-
-> - RStudio is a powerful user interface that helps you get better control of your analysis.
-> - Like R, it is also completely free.
-> - You can write your entire paper/report (text, code, analysis, graphics, etc.) all in RMarkdown.
-> - If you need to update any of your code, RMarkdown will automatically update your plots and output of your analysis and will create an updated PDF file.
-> - **No more copy-and-paste!**
-> - It's my job!
-
----
-
-## What formats can RMarkdown output to?
-
-![rmd pipeline](figure/rmd-pipeline.png)
-
----
-
-# The Reed College <br> RMarkdown <br> Senior Thesis Template
-
----
-
-## Using predefined templates
-
-- The actual PDF that is produced via RMarkdown uses the existing $\LaTeX\,$ template
-    - This is to keep the formatting to match what has been approved
-- You don't need to know any $\LaTeX\,$ to write your thesis now
-    - Except for entering equations like $Y = mX + b$ which requires you to use the dollar signs
-    - For example, `$Y = mX + b$`
-
----
-
-# Demo of getting <br> the template <br> up-and-running
-
-(Following along with blog [here](http://blogs.reed.edu/ed-tech/2015/11/r-markdown-senior-thesis-template/))
-
----
-
-# What can I help you with?
+## What can I help you with?
 
 > - Data analysis
 > - Data wrangling/cleaning
@@ -252,7 +21,9 @@ hist(x)
 > - Data tidying/manipulating
 > - Reproducible research
 
-# When am I available?
+---
+
+## When am I available?
 
 > - Email me at cismay@reed.edu or chester.ismay@reed.edu to schedule a time to meet if office hours don't work
 > - Tentative Spring 2016 office (ETC 223) hours
@@ -261,13 +32,12 @@ hist(x)
 >     - Wednesdays (1:30 PM to 2:30 PM)
 > - Sometimes available for virtual office hours via Google Hangouts (email me for details)
 
-# Resources
+---
 
-[Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+## Resources
 
-[R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 
-[My `reedtemplates` package](https://github.com/ismayc/reedtemplates/)
+---
 
 # Thanks! 
 
@@ -277,7 +47,6 @@ hist(x)
 
 <br>
 
->- [Blogpost about this thesis template](http://blogs.reed.edu/ed-tech/2015/11/r-markdown-senior-thesis-template/)
->- Code for slide creation on [my GitHub page](https://github.com/ismayc/Reed_WoRkshops/tree/master/Paideia_Rmd_thesis_2016)
->- Slides available [here](http://rpubs.com/cismay/paideia_2k16_rmd)
+>- Code for slide creation on [my GitHub page](https://github.com/ismayc/Reed_WoRkshops/tree/master/Paideia_interactive_dataviz_2016)
+>- Slides available [here](http://rpubs.com/cismay/paideia_2k16_idv)
 
