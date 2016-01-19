@@ -500,3 +500,4 @@ All workshops in ETC 211 from 4 - 5 PM
 <br /> <br />
 
 Slides available at <http://rpubs.com/cismay/dvur_workshop_2015>
+Code for slide creation on [my GitHub page] (https://github.com/ismayc/Reed_WoRkshops/tree/master/january_academy_2016)
