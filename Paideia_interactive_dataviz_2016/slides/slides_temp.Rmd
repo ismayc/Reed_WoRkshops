@@ -1,0 +1,106 @@
+---
+title: "Interactive Data Visualization"
+author: "<br> Chester Ismay (cismay@reed.edu) <br>"
+date: "Paideia 2k16 <br><br> Slides available at <http://rpubs.com/cismay/paideia_2k16_idv>"
+---
+
+<!-- When we think about data visualization, we often think of a static plot with some colors and points.  New tools (spearheaded by Hans Rosling's Gapminder project) are constantly being developed to allow us to interact dynamically with data visualizations.  I'll discuss a variety of different tools that attempt to make data come to life!
+
+All too often statistics is thought of as a boring subject with boring plots.  New software packages and tools are being developed to better understand the relationships between variables.  I'll demonstrate a lot of these different tools and packages using the R computing language.  We'll go through a variety of different examples from multiple fields to better understand anomalies and trends in data.
+-->
+
+```{r setup, include=FALSE}
+pkg <- c("dplyr", "ggplot2", "knitr", "readr", 
+         "xts", "maps", "googleVis", "DT")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+if(!require(revealjs)){
+  devtools::install_github("jjallaire/revealjs")
+}
+
+if(!require(plotly)){
+  devtools::install_github("ropensci/plotly")
+}
+
+if(!require(pnwflights14)){
+  devtools::install_github("ismayc/pnwflights14")
+}
+
+if(!require(dygraphs)){
+  devtools::install_github("rstudio/dygraphs")
+}
+
+if(!require(rmarkdown)){
+  devtools::install_github("rstudio/rmarkdown")
+}
+
+library(dplyr)
+library(ggplot2)
+library(revealjs)
+library(knitr)
+library(readr)
+library(plotly)
+library(dygraphs)
+library(pnwflights14)
+library(xts)
+library(maps)
+library(googleVis)
+library(DT)
+library(rmarkdown)
+
+options(width = 100, scipen = 99)
+```
+
+### Alaskan departure delays in PNW
+
+- The [`pnwflights14`](http://github.com/ismayc/pnwflights14) package provides information contains information about all flights that departed from SEA in Seattle and PDX in Portland, in 2014: 162,049 flights in total.
+
+- We can use this data and the `dplyr` package to look at daily maximum departure delays throughout the year for Alaskan Airlines.
+
+---
+
+# Time series/line graphs
+
+---
+
+```{r}
+data("flights", package = "pnwflights14")
+alaskan <- flights %>% 
+  filter(carrier %in% c("AS")) %>%
+  mutate(date2014 = as.Date(paste0("2014/", month, "/", day))) %>%
+  group_by(date2014) %>%
+  summarize(max_dep_delay = max(dep_delay, na.rm=TRUE))
+```
+
+---
+
+```{r}
+alaskan %>% ggplot(aes(x = date2014, y = max_dep_delay)) +
+  geom_line() +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b %y") +
+  xlab("Date") +
+  ylab("Maximum Departure Delay")
+```
+
+---
+
+## Using `dygraph`
+
+```{r fig.height=4}
+# Won't save plot to HTML files
+alaskan_ts <- cbind(xts(alaskan$max_dep_delay, alaskan$date2014))
+colnames(alaskan_ts) <- "Max Departure Delay"
+dygraph(alaskan_ts)
+```
+
+---
+
+```{r}
+sessionInfo()
+```
+
