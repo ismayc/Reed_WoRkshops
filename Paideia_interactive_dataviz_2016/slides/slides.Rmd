@@ -11,7 +11,7 @@ All too often statistics is thought of as a boring subject with boring plots.  N
 
 ```{r setup, include=FALSE}
 pkg <- c("dplyr", "ggplot2", "knitr", "readr", 
-         "xts", "maps", "googleVis", "DT")
+         "xts", "maps", "googleVis", "DT", "rmarkdown")
 
 new.pkg <- pkg[!(pkg %in% installed.packages())]
 
@@ -236,8 +236,11 @@ alaskan %>% ggplot(aes(x = date2014, y = max_dep_delay)) +
 ggplotly()
 ```
 
+---
 
-```{r fig.width=8, cache=FALSE, include=FALSE}
+## Using `dygraph`
+
+```{r fig.width=8, cache=FALSE}
 # Won't save plot to HTML files
 alaskan_ts <- cbind(xts(alaskan$max_dep_delay, alaskan$date2014))
 colnames(alaskan_ts) <- "Max Departure Delay"
@@ -370,4 +373,10 @@ datatable(iris, options = list(pageLength = 5))
 
 >- Code for slide creation on [my GitHub page](https://github.com/ismayc/Reed_WoRkshops/tree/master/Paideia_interactive_dataviz_2016)
 >- Slides available [here](http://rpubs.com/cismay/paideia_2k16_idv)
+
+---
+
+```{r}
+sessionInfo()
+```
 
