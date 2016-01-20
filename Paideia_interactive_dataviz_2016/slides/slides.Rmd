@@ -2,6 +2,17 @@
 title: "Interactive Data Visualization"
 author: "<br> Chester Ismay (cismay@reed.edu) <br>"
 date: "Paideia 2k16 <br><br> Slides available at <http://rpubs.com/cismay/paideia_2k16_idv>"
+output:
+  revealjs::revealjs_presentation:
+    incremental: true
+    theme: beige
+    highlight: zenburn
+    center: true
+    fig_width: 9.5
+    fig_height: 5
+    fig.align: center
+    transition: slide
+    background_transition: zoom
 ---
 
 <!-- When we think about data visualization, we often think of a static plot with some colors and points.  New tools (spearheaded by Hans Rosling's Gapminder project) are constantly being developed to allow us to interact dynamically with data visualizations.  I'll discuss a variety of different tools that attempt to make data come to life!
@@ -20,7 +31,7 @@ if (length(new.pkg)) {
 }
 
 if(!require(revealjs)){
-  devtools::install_github("jjallaire/revealjs")
+  devtools::install_github("jjallaire/revealjs", ref = "a4854c017eac44d969a216103551c21d66329a74")
 }
 
 if(!require(plotly)){
@@ -32,7 +43,7 @@ if(!require(pnwflights14)){
 }
 
 if(!require(dygraphs)){
-  devtools::install_github("rstudio/dygraphs")
+  devtools::install_github("rstudio/dygraphs", ref = "778acdaeb91b754412d928ea824632bceae3078b")
 }
 
 library(dplyr)
@@ -232,13 +243,18 @@ alaskan %>% ggplot(aes(x = date2014, y = max_dep_delay)) +
 
 ---
 
-```{r}
+```{r plotly=TRUE}
 ggplotly()
 ```
 
-```{r include=FALSE, eval=FALSE}
-# Won't save plot to HTML files
-alaskan_ts <- cbind(xts(alaskan$max_dep_delay, alaskan$date2014))
+---
+
+## Plotting the time series using `dygraph` 
+
+(Converting to time series format using `xts`)
+
+```{r fig.height=4}
+alaskan_ts <- xts(alaskan$max_dep_delay, alaskan$date2014)
 colnames(alaskan_ts) <- "Max Departure Delay"
 dygraph(alaskan_ts)
 ```
@@ -273,7 +289,7 @@ canada_plot
 
 ---
 
-```{r}
+```{r plotly=TRUE}
 ggplotly(canada_plot)
 ```
 
@@ -292,7 +308,7 @@ us_plot
 
 ---
 
-```{r}
+```{r plotly=TRUE}
 ggplotly(us_plot)
 ```
 
