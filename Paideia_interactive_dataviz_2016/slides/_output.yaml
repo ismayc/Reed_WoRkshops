@@ -1,0 +1,10 @@
+revealjs::revealjs_presentation:
+    incremental: true
+    theme: beige
+    highlight: zenburn
+    center: true
+    fig_width: 10
+    fig_height: 5
+    fig.align: center
+    transition: slide
+    background_transition: zoom

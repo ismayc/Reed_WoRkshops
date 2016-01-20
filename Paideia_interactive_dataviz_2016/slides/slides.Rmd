@@ -1,0 +1,373 @@
+---
+title: "Interactive Data Visualization"
+author: "<br> Chester Ismay (cismay@reed.edu) <br>"
+date: "Paideia 2k16 <br><br> Slides available at <http://rpubs.com/cismay/paideia_2k16_idv>"
+---
+
+<!-- When we think about data visualization, we often think of a static plot with some colors and points.  New tools (spearheaded by Hans Rosling's Gapminder project) are constantly being developed to allow us to interact dynamically with data visualizations.  I'll discuss a variety of different tools that attempt to make data come to life!
+
+All too often statistics is thought of as a boring subject with boring plots.  New software packages and tools are being developed to better understand the relationships between variables.  I'll demonstrate a lot of these different tools and packages using the R computing language.  We'll go through a variety of different examples from multiple fields to better understand anomalies and trends in data.
+-->
+
+```{r setup, include=FALSE}
+pkg <- c("dplyr", "ggplot2", "knitr", "readr", 
+         "xts", "maps", "googleVis", "DT")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+if(!require(revealjs)){
+  devtools::install_github("jjallaire/revealjs")
+}
+
+if(!require(plotly)){
+  devtools::install_github("ropensci/plotly")
+}
+
+if(!require(pnwflights14)){
+  devtools::install_github("ismayc/pnwflights14")
+}
+
+if(!require(dygraphs)){
+  devtools::install_github("rstudio/dygraphs")
+}
+
+library(dplyr)
+library(ggplot2)
+library(revealjs)
+library(knitr)
+library(readr)
+library(plotly)
+library(dygraphs)
+library(pnwflights14)
+library(xts)
+library(maps)
+library(googleVis)
+library(DT)
+
+options(width = 100, scipen = 99)
+```
+
+### The __Iris__ flower data set
+
+- Introduced by Ronald Fisher in 1936
+
+- The data set consists of 50 samples from each of three species of Iris (Iris setosa, Iris virginica and Iris versicolor). 
+
+- Four features were measured from each sample: the length and the width of the sepals and petals, in centimetres. Based on the combination of these four features, Fisher developed a model to distinguish the species from each other.
+
+Source: [Wikipedia](https://en.wikipedia.org/wiki/Iris_flower_data_set)
+
+---
+
+# Scatterplots
+
+---
+
+## Traditional (boring) plot
+
+```{r}
+with(iris, plot(x = Petal.Width, y = Sepal.Length))
+```
+
+---
+
+## Prettier (not quite as boring) plot
+
+```{r}
+qplot(Petal.Width, Sepal.Length, data = iris)
+```
+
+---
+
+## Interactive plot using `plotly`
+
+```{r, plotly=TRUE, cache=F}
+ggiris <- qplot(Petal.Width, Sepal.Length, data = iris)
+ggplotly(ggiris)
+```
+
+---
+
+## Prettier interactive plot using `plotly`
+
+```{r, plotly=TRUE, cache=F}
+ggiris_colored <- qplot(Petal.Width, Sepal.Length, data = iris, 
+  color = Species)
+ggplotly(ggiris_colored)
+```
+
+
+---
+
+## Another interactive plot
+
+```{r, plotly=TRUE, cache=F}
+iris %>% plot_ly(x = Petal.Width, y = Sepal.Length,
+  type = "scatter", color = Species, mode = "markers")
+```
+
+---
+
+# Scatterplots (Part Deux)
+
+---
+
+### Reed College majors VS FTE by department
+
+- Based off [analysis](http://www.reed.edu/data-at-reed/resources/R/scatter_plots.html) done by Rich Majerus in 2014 using the `googleVis` package
+
+- Data does not include 94 interdisciplinary majors and 40 undecided majors.  
+
+- Majors like Bio/Chem are split between the two departments 
+
+- General Lit majors are included with English 
+
+- Dance majors and faculty are included with Theatre
+
+```{r include=FALSE}
+Departments = c('Art' , 'Music', 'Theatre', 'Anthropology', 'Economics',
+                'History', 'Political Science', 'Sociology', 'Chinese',  'Classics',
+                'English', 'French', 'German', 'Russian', 'Spanish',
+                'Biology', 'Chemistry', 'Mathematics', 'Physics', 'Linguistics',
+                'Philosophy', 'Psychology', 'Religion')
+
+Majors = c(58, 21, 16, 52, 56,
+          57, 68, 28, 6, 20, 
+          150, 5, 2, 7, 3, 
+          153.5, 74, 72.5, 125, 45,
+          75, 98, 25)
+
+FTE = c(7.8, 4, 6.25, 5, 5.6, 
+        8.7, 5.5, 3, 3, 4, 
+        12, 5, 3, 3, 5, 
+        9, 6.8, 8, 6, 4, 
+        5.7, 7.7, 4)
+
+major_data <- data.frame(Departments, Majors, FTE)
+```
+
+---
+
+```{r cache=F}
+major_data %>% ggplot(aes(x = Majors, y = FTE)) +
+  geom_point() +
+  ggtitle("Reed College Majors and FTE by Department")
+```
+
+---
+
+```{r echo=FALSE, results="asis"}
+# make a new data frame with only two columns to scatter plot 
+keep <- c('Majors', 'FTE')
+data2 <- major_data[keep]
+
+# add names to new data frame as factor 
+data2$pop.html.tooltip=major_data$Departments
+
+# create interactive scatter plot using googleVis
+Scatter1 <- gvisScatterChart(data2,                                                           
+                            options=list(tooltip="{isHtml:'True'}",              # Define tooltip                            
+                              legend="none", lineWidth=0, pointSize=5,                                                     
+                              vAxis="{title:'Faculty (Total FTE)'}",             # y-axis label                
+                              hAxis="{title:'Majors (delared and intended)'}",   # x-axis label                     
+                              width=900, height=500))                            # plot dimensions  
+print(Scatter1, 'chart') 
+```
+
+---
+
+Left-click and drag to select an area of the chart to zoom on.  Right-click to zoom back out.
+
+```{r echo=FALSE, results="asis"}
+Scatter2 <- gvisScatterChart(data2,                                                           
+                            options=list(
+                              explorer="{actions: ['dragToZoom', 
+                                          'rightClickToReset'],
+                                           maxZoomIn:0.05}",
+                              #chartArea="{width:'85%',height:'80%'}",
+                              tooltip="{isHtml:'True'}",              
+                              crosshair="{trigger:'both'}",                         
+                              legend="none", lineWidth=0, pointSize=5,                                                     
+                              vAxis="{title:'Faculty (Total FTE)'}",                        
+                              hAxis="{title:'Majors (delared and intended)'}",                     
+                              width=900, height=500))                                                                 
+print(Scatter2, 'chart') 
+```
+
+
+---
+
+### Alaskan departure delays in PNW
+
+- The [`pnwflights14`](http://github.com/ismayc/pnwflights14) package provides information contains information about all flights that departed from SEA in Seattle and PDX in Portland, in 2014: 162,049 flights in total.
+
+- We can use this data and the `dplyr` package to look at daily maximum departure delays throughout the year for Alaskan Airlines.
+
+---
+
+# Time series/line graphs
+
+---
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+data("flights", package = "pnwflights14")
+alaskan <- flights %>% 
+  filter(carrier %in% c("AS")) %>%
+  mutate(date2014 = as.Date(paste0("2014/", month, "/", day))) %>%
+  group_by(date2014) %>%
+  summarize(max_dep_delay = max(dep_delay, na.rm=TRUE))
+```
+
+```{r cache=FALSE}
+alaskan %>% ggplot(aes(x = date2014, y = max_dep_delay)) +
+  geom_line() +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b %y") +
+  xlab("Date") +
+  ylab("Maximum Departure Delay")
+```
+
+---
+
+```{r}
+ggplotly()
+```
+
+
+```{r fig.width=8, cache=FALSE, include=FALSE}
+# Won't save plot to HTML files
+alaskan_ts <- cbind(xts(alaskan$max_dep_delay, alaskan$date2014))
+colnames(alaskan_ts) <- "Max Departure Delay"
+dygraph(alaskan_ts)
+```
+
+---
+
+### Canadian and US population and geography
+
+- Canada is an extremely large land mass (2nd largest country in the world), but is only the 37th largest country in terms of population
+
+- The US ranks 4th highest in land mass and 3rd highest in population
+
+- We can use data in the `maps` package to better visualize why these rankings exist
+
+---
+
+# Maps
+
+---
+
+
+```{r cache=FALSE}
+data(canada.cities, package = "maps")
+canada_plot <- ggplot(canada.cities, aes(x = long, y = lat)) +
+  coord_equal() +
+  geom_point(aes(size=pop, text = paste0(name, ",",
+    "Pop: ", prettyNum(pop, big.mark = ",", scientific = FALSE))), 
+    colour = "red", alpha = 1/2) +
+  borders(regions="canada")
+canada_plot
+```
+
+---
+
+```{r}
+ggplotly(canada_plot)
+```
+
+---
+
+```{r cache=FALSE}
+data(us.cities, package = "maps")
+us_plot <- ggplot(us.cities, aes(x = long, y = lat)) +
+  coord_equal() +
+  geom_point(aes(size=pop, text = paste0(name, ",",
+    "Pop: ", prettyNum(pop, big.mark = ",", scientific = FALSE))), 
+    colour = "red", alpha = 1/2) +
+  borders(regions="usa", xlim = c(-200, -60), ylim = c(20, 80))
+us_plot
+```
+
+---
+
+```{r}
+ggplotly(us_plot)
+```
+
+---
+
+# 3D objects
+
+---
+
+```{r}
+plot_ly(z = volcano, type = "surface")
+```
+
+---
+
+# Interactive Data Tables
+
+---
+
+```{r cache=FALSE}
+datatable(iris, options = list(pageLength = 5))
+```
+
+---
+
+## Another data table example
+
+[RA Duty Scheduling](http://rpubs.com/cismay/ra_schedule_s2016)
+
+---
+
+## Other resources
+
+[Plotting maps in R with `ggplot2`](https://github.com/dkahle/ggmap)
+
+[HTML Widgets for R](http://www.htmlwidgets.org)
+
+[Leaflet package for R](https://rstudio.github.io/leaflet/)
+
+[GapMinder (now owned by Google)](http://www.google.com/publicdata/directory)
+
+[Hans Rosling's TED talk - "The Best Stats You've Ever Seen"](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en)
+
+---
+
+## What can I help you with?
+
+> - Data analysis
+> - Data wrangling/cleaning
+> - Data visualization
+> - Data tidying/manipulating
+> - Reproducible research
+
+---
+
+## When am I available?
+
+> - Email me at cismay@reed.edu or chester.ismay@reed.edu to schedule a time to meet if office hours don't work
+> - Tentative Spring 2016 office (ETC 223) hours
+>     - Mondays (10 AM to 11 AM)
+>     - Tuesdays (2 PM to 3 PM)
+>     - Wednesdays (1:30 PM to 2:30 PM)
+> - Sometimes available for virtual office hours via Google Hangouts (email me for details)
+
+---
+
+# Thanks! 
+
+<br>
+
+<font size="7">cismay@reed.edu</font>
+
+<br>
+
+>- Code for slide creation on [my GitHub page](https://github.com/ismayc/Reed_WoRkshops/tree/master/Paideia_interactive_dataviz_2016)
+>- Slides available [here](http://rpubs.com/cismay/paideia_2k16_idv)
+
