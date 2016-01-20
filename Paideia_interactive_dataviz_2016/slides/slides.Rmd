@@ -55,7 +55,7 @@ options(width = 100, scipen = 99)
 
 - Introduced by Ronald Fisher in 1936
 
-- The data set consists of 50 samples from each of three species of Iris (Iris setosa, Iris virginica and Iris versicolor). 
+- The data set consists of 50 samples from each of three species of Iris (_Iris setosa_, _Iris virginica_, and _Iris versicolor_). 
 
 - Four features were measured from each sample: the length and the width of the sepals and petals, in centimetres. Based on the combination of these four features, Fisher developed a model to distinguish the species from each other.
 
@@ -116,36 +116,36 @@ iris %>% plot_ly(x = Petal.Width, y = Sepal.Length,
 
 ---
 
-### Reed College majors VS FTE by department
+### Reed College majors <br> VS <br> Total Faculty FTE by department
 
 - Based off [analysis](http://www.reed.edu/data-at-reed/resources/R/scatter_plots.html) done by Rich Majerus in 2014 using the `googleVis` package
 
-- Data does not include 94 interdisciplinary majors and 40 undecided majors.  
+- Data does not include 143 interdisciplinary majors and 9 undecided majors.  
 
 - Majors like Bio/Chem are split between the two departments 
 
-- General Lit majors are included with English 
+- General Lit/Lit majors are included with English 
 
 - Dance majors and faculty are included with Theatre
 
 ```{r include=FALSE}
-Departments = c('Art' , 'Music', 'Theatre', 'Anthropology', 'Economics',
+Departments = c('Art', 'Music', 'Theatre', 'Anthropology', 'Economics',
                 'History', 'Political Science', 'Sociology', 'Chinese',  'Classics',
                 'English', 'French', 'German', 'Russian', 'Spanish',
                 'Biology', 'Chemistry', 'Mathematics', 'Physics', 'Linguistics',
                 'Philosophy', 'Psychology', 'Religion')
 
-Majors = c(58, 21, 16, 52, 56,
-          57, 68, 28, 6, 20, 
-          150, 5, 2, 7, 3, 
-          153.5, 74, 72.5, 125, 45,
-          75, 98, 25)
+Majors = c(67, 19, 22, 43, 53,
+          58, 75, 36, 7, 25, 
+          155, 6, 1, 3, 8, 
+          154.5, 88, 99.5, 114, 42,
+          63.5, 117, 16.5)
 
-FTE = c(7.8, 4, 6.25, 5, 5.6, 
-        8.7, 5.5, 3, 3, 4, 
-        12, 5, 3, 3, 5, 
-        9, 6.8, 8, 6, 4, 
-        5.7, 7.7, 4)
+FTE = c(7.8, 4, 5.8, 3.7, 5.5, 
+        9.5, 6.2, 3.4, 4, 4, 
+        10, 5, 3, 3, 5, 
+        9.8, 6.8, 9.55, 6, 3, 
+        5.2, 7, 4)
 
 major_data <- data.frame(Departments, Majors, FTE)
 ```
@@ -174,7 +174,7 @@ Scatter1 <- gvisScatterChart(data2,
                               legend="none", lineWidth=0, pointSize=5,                                                     
                               vAxis="{title:'Faculty (Total FTE)'}",             # y-axis label                
                               hAxis="{title:'Majors (delared and intended)'}",   # x-axis label                     
-                              width=900, height=500))                            # plot dimensions  
+                              width=900, height=600))                            # plot dimensions  
 print(Scatter1, 'chart') 
 ```
 
@@ -194,7 +194,7 @@ Scatter2 <- gvisScatterChart(data2,
                               legend="none", lineWidth=0, pointSize=5,                                                     
                               vAxis="{title:'Faculty (Total FTE)'}",                        
                               hAxis="{title:'Majors (delared and intended)'}",                     
-                              width=900, height=500))                                                                 
+                              width=900, height=600))                                                                 
 print(Scatter2, 'chart') 
 ```
 
@@ -236,11 +236,7 @@ alaskan %>% ggplot(aes(x = date2014, y = max_dep_delay)) +
 ggplotly()
 ```
 
----
-
-## Using `dygraph`
-
-```{r fig.width=8, cache=FALSE}
+```{r include=FALSE, eval=FALSE}
 # Won't save plot to HTML files
 alaskan_ts <- cbind(xts(alaskan$max_dep_delay, alaskan$date2014))
 colnames(alaskan_ts) <- "Max Departure Delay"

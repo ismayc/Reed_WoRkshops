@@ -3,7 +3,7 @@ revealjs::revealjs_presentation:
     theme: beige
     highlight: zenburn
     center: true
-    fig_width: 10
+    fig_width: 9.5
     fig_height: 5
     fig.align: center
     transition: slide
