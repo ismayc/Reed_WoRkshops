@@ -291,7 +291,7 @@ ggplotly()
 ```{r}
 alaskan_ts <- xts(alaskan$max_dep_delay, alaskan$date2014)
 colnames(alaskan_ts) <- "Max Departure Delay"
-dygraph(alaskan_ts)
+dygraph(alaskan_ts) %>% dyRangeSelector()
 ```
 
 ---
@@ -352,6 +352,8 @@ ggplotly(us_plot)
 # 3D objects
 
 ---
+
+## New Zealand's highest volcano
 
 ```{r}
 plot_ly(z = volcano, type = "surface")
