@@ -1,7 +1,7 @@
 ---
 title: "Interactive Data Visualization"
 author: "<br> Chester Ismay (cismay@reed.edu) <br>"
-date: "Paideia 2k16 <br><br> Slides available at <http://rpubs.com/cismay/paideia_2k16_idv>"
+date: "Paideia 2k16 <br><br> Slides available at <http://rpubs.com/cismay/paideia_2k16_idv> <br> Supplementary HTML file at <http://rpubs.com/cismay/paideia_2k16_idv_sup>"
 output:
   revealjs::revealjs_presentation:
     incremental: true
@@ -253,7 +253,7 @@ ggplotly()
 
 (Converting to time series format using `xts`)
 
-```{r fig.height=4}
+```{r fig.height=3.3, fig.width=9}
 alaskan_ts <- xts(alaskan$max_dep_delay, alaskan$date2014)
 colnames(alaskan_ts) <- "Max Departure Delay"
 dygraph(alaskan_ts) %>% dyRangeSelector()
@@ -276,7 +276,7 @@ dygraph(alaskan_ts) %>% dyRangeSelector()
 ---
 
 
-```{r cache=FALSE}
+```{r}
 data(canada.cities, package = "maps")
 canada_plot <- ggplot(canada.cities, aes(x = long, y = lat)) +
   coord_equal() +
@@ -295,7 +295,7 @@ ggplotly(canada_plot)
 
 ---
 
-```{r cache=FALSE}
+```{r}
 data(us.cities, package = "maps")
 us_plot <- ggplot(us.cities, aes(x = long, y = lat)) +
   coord_equal() +
@@ -393,4 +393,3 @@ datatable(iris, options = list(pageLength = 5))
 ```{r}
 sessionInfo()
 ```
-

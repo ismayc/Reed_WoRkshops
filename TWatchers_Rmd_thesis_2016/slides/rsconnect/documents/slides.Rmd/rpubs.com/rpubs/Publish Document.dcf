@@ -1,0 +1,7 @@
+name: Publish Document
+account: rpubs
+server: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/152131/64ecbee05fd947048df2b46abf0ec5b8
+bundleId: https://api.rpubs.com/api/v1/document/152131/64ecbee05fd947048df2b46abf0ec5b8
+url: http://rpubs.com/cismay/152131
+when: 1455247837.04407
