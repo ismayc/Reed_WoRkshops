@@ -1,0 +1,298 @@
+---
+title: "R for Statistics"
+author: "<br> Chester Ismay (cismay@reed.edu) <br>"
+date: "Lewis & Clark FTI 2016 <br><br> Slides available at <http://rpubs.com/cismay/r_FTI_2016> <br> <br> Supplementary HTML file at <http://rpubs.com/cismay/r_FTI_2016_sup>"
+output:
+  revealjs::revealjs_presentation:
+    incremental: true
+    theme: beige
+    highlight: zenburn
+    center: true
+    fig_width: 9.5
+    fig_height: 5
+    fig.align: center
+    transition: slide
+    background_transition: zoom
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("dplyr", "ggplot2","rmarkdown")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+if(!require(revealjs)){
+  devtools::install_github("rstudio/revealjs")
+}
+
+if(!require(pnwflights14)){
+  devtools::install_github("ismayc/pnwflights14")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+options(width = 100, scipen = 99)
+```
+
+<style type="text/css">
+  /* I'm cheating here. The ioslides pipeline wants to treat every h1 and h2
+     in a special way, so I can't demo what they look like as a part of a page.
+     I'm just emulating it here.*/
+  #faux-h1 {
+    font-size: 1.5em; margin: .67em 0;
+  }
+  
+  #faux-h2 {
+    font-size: 1.2em; margin: .75em 0;
+  }
+  
+  #questions {
+    text-align: center;
+    font-size: 2em;
+    padding-top: 1em;
+    padding-bottom: 2em;
+  }
+  
+  #wrap {
+   width:900px;
+   margin:0 auto;
+  }
+ 
+  #left_col {
+   float:left;
+   width:550px;
+  }
+  
+  #right_col {
+   float:right;
+   width:350px;
+  }
+     
+</style>
+
+## Schedule for session
+
+- Why R?
+
+- What is R Markdown?
+
+- Data visualization
+
+- Data manipulation/summarizing
+
+- Data analysis/modeling
+
+- Reproducible research
+
+---
+
+## Why R?
+
+---
+
+## The traditional approach to reports / analysis in the sciences
+
+ - Import data set into statistical software package
+ - Run the procedure to get results
+ - Copy and paste appropriate pieces from the analysis into document editor
+ - Add descriptions
+ - Finish/submit report
+
+---
+
+## Disadvantages of this process
+
+- Lots of manual work (prone to make errors)
+- Tedious (who likes to carefully copy-and-paste?)
+- Likely not recordable (did you write down all the steps you followed to get your analysis?)
+- What if you made an error at the beginning of your analysis?  If your data had an error?
+
+---
+
+## What is R?
+
+ - R is a completely free software package and language for statistical analysis and graphics.
+ - It _excels_ in helping you with
+      - data manipulation
+      - automation
+      - reproducibility
+      - improved accuracy
+      - error finding
+      - customizability
+- Any downsides?
+
+## Learning how to use R
+
+### RStudio and R Markdown
+
+ - RStudio is a powerful user interface that helps you get better control of your analysis.
+ - It is also completely free.
+ - It comes in both a desktop version and a server version (on the cloud).
+ - You can write your entire paper/report (text, code, analysis, graphics, etc.) all in R Markdown.
+ - If you need to update any of your code, R Markdown will automatically update your plots and output of your analysis and will create an updated PDF/HTML file.
+ - **No more copy-and-paste!**
+
+---
+
+## What is Markdown?
+
+ - A "plaintext formatting syntax"
+ - Type in plain text, render to more complex formats
+ - One step beyond writing a `txt` file
+ - Render to HTML, PDF, etc.
+
+---
+
+## What does it look like?
+
+<div id="wrap">
+  <div id="left_col">
+
+```
+  # Header 1
+  
+  ## Header 2
+  
+  Normal paragraphs of text go here.
+  
+  **I'm bold**
+  
+  [links!](http://rstudio.com)
+  
+   * Unordered
+   * Lists   
+   
+  And  Tables
+  ---- -------
+  Like This
+  
+```
+
+</div>
+
+  <div id="right_col">
+  <img src="figure/markdown.png" alt="markdown" style="width: 350px;"/>
+  </div>
+</div>
+
+---
+
+## What is R Markdown?
+  
+>- "Literate programming"
+>- Embed R code in a Markdown document
+>- Renders textual output along with graphics
+
+<div style="height: 15px"></div>
+
+<hr />
+
+<div style="height: 15px"></div>
+
+<!-- Sorry for this hack. I couldn't figure out how to put three backticks in 
+    an Rmd without it getting interpreted as a break for <code>, so I have 
+    0-width unicode spaces between these inner backticks. Ace (RStudio) will 
+    show them as red-dots. Other editors may not. -->
+
+<div id="wrap">    
+  <div id="left_col">
+
+```
+```{r chunk_name}
+x <- rnorm(1000)
+length(x)
+qplot(x, bins = 10, 
+      fill = I("orange"), 
+      color = I("black"))
+```
+```
+  </div>
+
+<div id="right_col">
+
+```{r, fig.width=4, fig.height=3, echo=FALSE}
+x <- rnorm(1000)
+length(x)
+qplot(x, bins = 10, fill = I("orange"), color = I("black"))
+```
+
+  </div>
+
+</div>
+
+---
+
+## But then I have to learn R...
+
+---
+
+## Data visualization
+
+---
+
+## Flights from Seattle and Portland in 2014
+
+
+
+---
+
+
+## Data manipulation/summarizing
+
+---
+
+## Other resources
+
+[Plotting maps in R with `ggplot2`](https://github.com/dkahle/ggmap)
+
+[HTML Widgets for R](http://www.htmlwidgets.org)
+
+[Leaflet package for R](https://rstudio.github.io/leaflet/)
+
+[GapMinder (now owned by Google)](http://www.google.com/publicdata/directory)
+
+[Hans Rosling's TED talk - "The Best Stats You've Ever Seen"](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en)
+
+---
+
+## What can I help you with?
+
+> - Data analysis
+> - Data wrangling/cleaning
+> - Data visualization
+> - Data tidying/manipulating
+> - Reproducible research
+
+---
+
+## When am I available?
+
+> - Email me at cismay@reed.edu or chester.ismay@reed.edu to schedule a time to meet if office hours don't work
+> - Tentative Spring 2016 office (ETC 223) hours
+>     - Mondays (10 AM to 11 AM)
+>     - Tuesdays (2 PM to 3 PM)
+>     - Wednesdays (1:30 PM to 2:30 PM)
+> - Sometimes available for virtual office hours via Google Hangouts (email me for details)
+
+---
+
+## Thanks! 
+
+<br>
+
+<font size="7">cismay@reed.edu</font>
+
+<br>
+
+>- Code for slide creation on [my GitHub page](https://github.com/ismayc/Reed_WoRkshops/tree/master/r_for_stats_FTI_2016)
+>- Slides available [here](http://rpubs.com/cismay/r_FTI_2016)
+
+---
+
+```{r}
+sessionInfo()
+```
