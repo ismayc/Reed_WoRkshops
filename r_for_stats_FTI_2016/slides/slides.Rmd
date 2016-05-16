@@ -1,7 +1,7 @@
 ---
 title: "R for Statistics"
 author: "<br> Chester Ismay (cismay@reed.edu) <br>"
-date: "Lewis & Clark FTI 2016 <br><br> Slides available at <http://rpubs.com/cismay/r_FTI_2016>"
+date: "Lewis & Clark FTI 2016 <br> Tuesday, May 17, 2016 <br><br> Slides available at <http://rpubs.com/cismay/r_FTI_2016>"
 output: #html_document
   revealjs::revealjs_presentation:
     incremental: true
@@ -537,6 +537,8 @@ OR just Google it!
 
 - Use the `dplyr` package (vignette [here](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)) along with appropriate plots using the `ggplot2` package to understand which styles of beers I like best.
 
+- You can also look into which cities and states produce beers I like and have tried most.  What stands out?
+
 - We are just doing data visualization and summary here (not inference)
 
 
@@ -548,6 +550,8 @@ OR just Google it!
 
     - File -> New File -> R Markdown -> From Template -> Chester's Beer Analysis
     - Give the file a name and proceed!
+
+- I've added these beer ratings to an R data package available [here](http://github.com/ismayc/izzyuntappd)
 
 ---
 
