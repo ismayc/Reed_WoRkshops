@@ -1,15 +1,15 @@
 ---
 title: "R for Statistics"
 author: "<br> Chester Ismay (cismay@reed.edu) <br>"
-date: "Lewis & Clark FTI 2016 <br><br> Slides available at <http://rpubs.com/cismay/r_FTI_2016> <br> <br> Supplementary HTML file at <http://rpubs.com/cismay/r_FTI_2016_sup>"
-output:
+date: "Lewis & Clark FTI 2016 <br><br> Slides available at <http://rpubs.com/cismay/r_FTI_2016>"
+output: #html_document
   revealjs::revealjs_presentation:
     incremental: true
     theme: beige
-    highlight: zenburn
+    highlight: tango
     center: true
     fig_width: 9.5
-    fig_height: 5
+    fig_height: 4.5
     fig.align: center
     transition: slide
     background_transition: zoom
@@ -17,7 +17,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-pkg <- c("dplyr", "ggplot2","rmarkdown")
+pkg <- c("dplyr", "ggplot2", "knitr", "rmarkdown")
 
 new.pkg <- pkg[!(pkg %in% installed.packages())]
 
@@ -80,13 +80,13 @@ options(width = 100, scipen = 99)
 
 - What is R Markdown?
 
-- Data visualization
+- How should we conduct statistical analyses?
 
-- Data manipulation/summarizing
-
-- Data analysis/modeling
-
-- Reproducible research
+    - Data visualization
+    - Data manipulation/summarizing
+    - Data analysis/modeling
+    - Interpretation of results
+    - Reproducible research
 
 ---
 
@@ -115,7 +115,7 @@ options(width = 100, scipen = 99)
 
 ## What is R?
 
- - R is a completely free software package and language for statistical analysis and graphics.
+ - `R` is a completely free software package and language for statistical analysis and graphics.
  - It _excels_ in helping you with
       - data manipulation
       - automation
@@ -123,7 +123,10 @@ options(width = 100, scipen = 99)
       - improved accuracy
       - error finding
       - customizability
+      - beautiful visualizations
 - Any downsides?
+
+---
 
 ## Learning how to use R
 
@@ -143,7 +146,7 @@ options(width = 100, scipen = 99)
  - A "plaintext formatting syntax"
  - Type in plain text, render to more complex formats
  - One step beyond writing a `txt` file
- - Render to HTML, PDF, etc.
+ - Render to HTML, PDF, DOCX, etc.
 
 ---
 
@@ -230,53 +233,321 @@ qplot(x, bins = 10, fill = I("orange"), color = I("black"))
 
 ---
 
-## Data visualization
+## Like learning a foreign language!
+
+### Similarities (In the simplest case)
+
+| R             | Foreign Language  | R examples           |
+|:--------------|:-----------------:|----------------------|
+| *functions*   | verb              | - `sqrt() `          |
+|               |                   | - `arrange()`        |
+|               |                   | - `lm()`             |
+| *command*     | sentence          | - `exp(3)`           |
+|               |                   | - `tail(babynames)`  |
+
+**KEY POINT** - Exposure makes you fluent!
+
+
+
+## Data summarization/visualization
 
 ---
 
-## Flights from Seattle and Portland in 2014
+## Flights from PDX in 2014
 
+```{r pdx, eval=FALSE}
+library(dplyr)
+library(pnwflights14)
+data("flights", package = "pnwflights14")
+pdx_flights <- flights %>% filter(origin == "PDX") %>% 
+  select(-year, -origin)
+str(object = pdx_flights)
+```
 
+---
+
+## Flights from PDX in 2014
+
+```{r pdx_eval}
+library(dplyr)
+library(pnwflights14)
+data("flights", package = "pnwflights14")
+pdx_flights <- flights %>% filter(origin == "PDX") %>% 
+  select(-year, -origin)
+str(object = pdx_flights)
+```
+
+---
+
+## Random sample
+
+We randomly select 6000 flights with no missing values from this set of `r prettyNum(nrow(pdx_flights), big.mark = ",")` flights.
+
+```{r rs}
+set.seed(2016)
+pdx_rs <- na.omit(pdx_flights) %>% sample_n(6000)
+```
 
 ---
 
 
-## Data manipulation/summarizing
+## Question of interest
+
+### Does a statistically significant difference exist in the mean departure delays for airlines departing PDX in 2014?
 
 ---
 
-## Other resources
+## Using visualizations to get a hint
 
-[Plotting maps in R with `ggplot2`](https://github.com/dkahle/ggmap)
+### What type of plot will help us visualize this?
 
-[HTML Widgets for R](http://www.htmlwidgets.org)
+- Explanatory variable: categorical
 
-[Leaflet package for R](https://rstudio.github.io/leaflet/)
+- Response variable: continuous
 
-[GapMinder (now owned by Google)](http://www.google.com/publicdata/directory)
+    - Side-by-side boxplot
+    
+---
 
-[Hans Rosling's TED talk - "The Best Stats You've Ever Seen"](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en)
+## Mindmap to assist
+
+![](figure/coggle.png)
+
+[Coggle Diagram](https://coggle.it/diagram/Vxlydu1akQFeqo6-)
 
 ---
 
-## What can I help you with?
+### Multiple Means (ANOVA)
 
-> - Data analysis
-> - Data wrangling/cleaning
-> - Data visualization
-> - Data tidying/manipulating
-> - Reproducible research
+![](figure/anova.png)
+
+[Coggle Diagram for ANOVA](https://coggle.it/diagram/VyLuhlY9DhNJF4yZ)
 
 ---
 
-## When am I available?
+## Plotting our data
 
-> - Email me at cismay@reed.edu or chester.ismay@reed.edu to schedule a time to meet if office hours don't work
-> - Tentative Spring 2016 office (ETC 223) hours
->     - Mondays (10 AM to 11 AM)
->     - Tuesdays (2 PM to 3 PM)
->     - Wednesdays (1:30 PM to 2:30 PM)
-> - Sometimes available for virtual office hours via Google Hangouts (email me for details)
+```{r qplot, eval=FALSE}
+library(ggplot2)
+qplot(x = carrier, y = dep_delay, data = pdx_rs, geom = "boxplot")
+```
+
+---
+
+## Plotting our data
+
+```{r qplot_eval}
+library(ggplot2)
+qplot(x = carrier, y = dep_delay, data = pdx_rs, geom = "boxplot")
+```
+
+---
+
+
+## Making tweaks (Part I)
+
+
+```{r side_boxplot, eval=FALSE}
+# library(ggplot2)
+ggplot(aes(x = carrier, y = dep_delay), data = pdx_rs) + 
+  geom_boxplot(outlier.shape = NA)
+```
+
+---
+
+## Making tweaks (Part I)
+
+```{r side_boxplot_eval}
+# library(ggplot2)
+ggplot(aes(x = carrier, y = dep_delay), data = pdx_rs) + 
+  geom_boxplot(outlier.shape = NA)
+```
+
+---
+
+## Making tweaks (Part II)
+
+```{r side_boxplot2, eval=FALSE}
+ggplot(aes(x = carrier, y = dep_delay), data = pdx_rs) + 
+  geom_boxplot(outlier.shape = NA) +
+  coord_cartesian(ylim = c(-20, 45))
+```
+
+---
+
+## Making tweaks (Part II)
+
+```{r side_boxplot2_eval}
+ggplot(aes(x = carrier, y = dep_delay), data = pdx_rs) + 
+  geom_boxplot(outlier.shape = NA) +
+  coord_cartesian(ylim = c(-20, 45))
+```
+
+---
+
+## Making tweaks (Part III)
+
+```{r side_boxplot3, fig.height=4, eval=FALSE}
+ggplot(aes(x = carrier, y = dep_delay), data = pdx_rs) + 
+  geom_boxplot(outlier.shape = NA) +
+  coord_cartesian(ylim = c(-20, 45)) +
+  stat_summary(fun.y = "mean", geom = "point", color = "red")
+```
+
+---
+
+## Making tweaks (Part III)
+
+```{r side_boxplot3_eval, fig.height=4}
+ggplot(aes(x = carrier, y = dep_delay), data = pdx_rs) + 
+  geom_boxplot(outlier.shape = NA) +
+  coord_cartesian(ylim = c(-20, 45)) +
+  stat_summary(fun.y = "mean", geom = "point", color = "red")
+```
+
+---
+
+## Data summarizing
+
+---
+
+### Sidebar: Which airline has the worst average departure delay?
+
+```{r pdx_summary}
+pdx_summary <- pdx_rs %>% group_by(carrier) %>%
+  summarize(`Mean Delay` = mean(dep_delay), `Median Delay` = median(dep_delay))
+kable(pdx_summary)
+```
+
+---
+
+### Get airline names
+
+```{r join, warning=FALSE}
+data("airlines", package = "pnwflights14")
+pdx_join <- inner_join(x = pdx_summary, y = airlines, by = "carrier")
+kable(pdx_join)
+```
+
+---
+
+## Data analysis
+
+---
+
+## Hypothesis test
+
+Assuming conditions are met...
+
+- they might not be...
+
+```{r anova}
+pdx_anova <- aov(formula = dep_delay ~ carrier, data = pdx_rs)
+summary(pdx_anova)
+```
+
+---
+
+## Interpretation of results
+
+---
+
+### Our friend the p-value
+
+- The $p$-value resulting from our analysis is essentially `r summary(pdx_anova)[[1]][["Pr(>F)"]][[1]]`.  
+
+- This corresponds to the probability of obtaining an observed $F$ statistic of `r summary(pdx_anova)[[1]][["F value"]][[1]]` or greater on an $F$ distribution with ${df}_1 = `r summary(pdx_anova)[[1]][["Df"]][[1]]`$ and $df_2 = `r summary(pdx_anova)[[1]][["Df"]][[2]]`$, which assumes that the mean departure delays for all carriers is the same (the null hypothesis is true).
+
+- This small $p$-value leads us to reject the null hypothesis in favor of the alternative:  at least one of the carriers has a mean departure delay that is different than the others (in the population of all 2014 flights from PDX).
+
+---
+
+## Visualizing the p-value
+
+- To better assist in understanding $p$-values and the shape of distributions, I created a Shiny app with an undergraduate student available at <http://ismay.shinyapps.io/ProbApp>
+
+---
+
+
+![](figure/f_prob.png)
+
+---
+
+## Reproducible research
+
+---
+
+> "**Reproducible research** is the idea that data analyses, and more generally, scientific claims, are published with their data and software code so that others may verify the findings and build upon them."
+
+ > - Roger Peng, Johns Hopkins
+
+---
+
+## Full worked out example
+
+- A full worked out example of this analysis is available [here](http://ismayc.github.io/teaching/sample_problems/anova3.html) as an HTML file to view.  
+- The corresponding R Markdown file is available [here](http://ismayc.github.io/teaching/sample_problems/anova3.Rmd).
+
+---
+
+## How did we do?
+
+- We collected a random sample of the actual data on all 2014 flights departing PDX.  Does a difference actually exist in the average departure delays for carriers in our population (all 2014 flights departing PDX)?
+
+- We can change the code below slightly to get our answer:
+
+    ```{r pdx_summary_noeval, eval=FALSE}
+    pdx_summary <- pdx_rs %>% group_by(carrier) %>%
+      summarize(`Mean Delay` = mean(dep_delay), 
+            `Median Delay` = median(dep_delay))
+    kable(pdx_summary)
+    ```
+
+---
+
+#### Answer
+
+```{r pdx_full_summary}
+pdx_full_summary <- na.omit(pdx_flights) %>% group_by(carrier) %>%
+  summarize(`Mean Delay` = mean(dep_delay), `Median Delay` = median(dep_delay))
+kable(pdx_full_summary)
+```
+
+---
+
+## Useful links
+
+[Data Processing with dplyr & tidyr](https://rpubs.com/bradleyboehmke/data_wrangling)
+
+[Introduction to dplyr](https://goo.gl/SY6qBy)
+
+[`ggplot2` documentation](http://docs.ggplot2.org/current/)
+
+[R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
+
+[`ggplot2` Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+
+OR just Google it!
+
+---
+
+## Workshop problems
+
+- Ratings from all beers I've rated using the Untappd app since February 2015
+
+- Use the `dplyr` package (vignette [here](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)) along with appropriate plots using the `ggplot2` package to understand which styles of beers I like best.
+
+- We are just doing data visualization and summary here (not inference)
+
+
+---
+
+## Getting the problems
+
+- To access the template file to begin your analysis on my beer adorations, go to 
+
+    - File -> New File -> R Markdown -> From Template -> Chester's Beer Analysis
+    - Give the file a name and proceed!
 
 ---
 
@@ -293,6 +564,6 @@ qplot(x, bins = 10, fill = I("orange"), color = I("black"))
 
 ---
 
-```{r}
+```{r comp_info}
 sessionInfo()
 ```

@@ -68,31 +68,6 @@ options(width = 70)
 
 ---
 
-## Traditional approach to writing a senior thesis <br> involving statistical analysis
-
-### The dreaded copy-and-paste
-
-> - Import data set into statistical software package
-> - Run the procedure to get results
-> - Copy and paste appropriate pieces from the analysis into document editor
-> - Add descriptions
-> - Finish/submit report
-
----
-
-## Disadvantages of this process
-
-> - Lots of manual work (prone to make errors)
-> - Tedious (who likes to carefully copy-and-paste?)
-> - Likely not recordable (did you write down all the steps you followed to get your analysis?)
-> - What if you made an error at the beginning of your analysis?  If your data had an error?
-
----
-
-# Reproducible research
-
----
-
 > "**Reproducible research** is the idea that data analyses, and more generally, scientific claims, are published with their data and software code so that others may verify the findings and build upon them."
 
  > - Roger Peng, Johns Hopkins
@@ -152,7 +127,7 @@ options(width = 70)
 
 ---
 
-## What is RMarkdown?
+## What is R Markdown?
   
 >- "Literate programming"
 >- Embed R code in a Markdown document
@@ -197,22 +172,7 @@ qplot(x, bins = 10, fill = I("orange"), color = I("black"))
 
 ---
 
-## But then I have to learn R...
-
----
-
-## Tools to make working with R friendly
-
-> - RStudio is a powerful user interface that helps you get better control of your analysis.
-> - Like R, it is also completely free.
-> - You can write your entire paper/report (text, code, analysis, graphics, etc.) all in RMarkdown.
-> - If you need to update any of your code, RMarkdown will automatically update your plots and output of your analysis and will create an updated PDF file.
-> - **No more copy-and-paste!**
-> - It's my job!
-
----
-
-# The Reed College <br> RMarkdown <br> Senior Thesis Template
+# The Reed College <br> R Markdown <br> Senior Thesis Template
 
 ---
 
@@ -226,7 +186,7 @@ qplot(x, bins = 10, fill = I("orange"), color = I("black"))
 
 [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-[R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+[R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/R Markdown-reference.pdf)
 
 [My `reedtemplates` package](https://github.com/ismayc/reedtemplates/)
 

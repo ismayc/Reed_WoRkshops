@@ -15,12 +15,23 @@ if(!require(revealjs)){
   library(devtools)
   devtools::install_github("jjallaire/revealjs")
 }
+
+if(!require(babynames)){
+  library(devtools)
+  devtools::install_github("hadley/babynames")
+}
+
+if(!require(pnwflights14)){
+  library(devtools)
+  devtools::install_github("ismayc/pnwflights14")
+}
+
 library(revealjs)
 options(width = 100)
 ```
 
 
-# Data Analysis With R
+## Data Analysis With R
 
 <br>
 
@@ -102,7 +113,7 @@ suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
 library(devtools)
 library(broom)
-data("names", package = "babynames")
+data("babynames", package = "babynames")
 ```
 
 ---
@@ -187,7 +198,7 @@ babynames %>% filter(name == "Chester" | name == "Karolyn") %>%
 
 ---
 
-# That wasn't fair!
+## That wasn't fair!
 
 ```{r mod_rivals}
 mod_names <- babynames %>% 
@@ -198,7 +209,7 @@ mod_names <- babynames %>%
 
 ---
 
-# What the...
+## What the...
 ```{r strange_plot}
 mod_names %>% qplot(year, prop, data = ., colour = kname)
 ```
@@ -228,7 +239,7 @@ mod_names %>% qplot(year, sumprop, data = ., colour = kname)
 
 ---
 
-# Like learning a foreign language!
+## Like learning a foreign language!
 
 ---
 
@@ -253,7 +264,7 @@ mod_names %>% qplot(year, sumprop, data = ., colour = kname)
 
 These two commands accomplish the same thing in R.
 ```{r chain_or_not, eval = FALSE}
-Data_Table %>% function_name (argument1, argument2)
+Data_Table %>% function_name(argument1, argument2)
 function_name(Data_Table, argument1, argument2)
 ```
 

@@ -315,7 +315,7 @@ dygraph(alaskan_ts) %>% dyRangeSelector()
 ```{r}
 data(canada.cities, package = "maps")
 canada_plot <- ggplot(canada.cities, aes(x = long, y = lat)) +
-  coord_equal() +
+  coord_map("ortho") +
   geom_point(aes(size=pop, text = paste0(name, ",",
     "Pop: ", prettyNum(pop, big.mark = ",", scientific = FALSE))), 
     colour = "red", alpha = 1/2) +
@@ -334,7 +334,7 @@ ggplotly(canada_plot)
 ```{r}
 data(us.cities, package = "maps")
 us_plot <- ggplot(us.cities, aes(x = long, y = lat)) +
-  coord_equal() +
+  coord_map("ortho") +
   geom_point(aes(size=pop, text = paste0(name, ",",
     "Pop: ", prettyNum(pop, big.mark = ",", scientific = FALSE))), 
     colour = "red", alpha = 1/2) +
