@@ -548,6 +548,7 @@ OR just Google it!
 
 - To access the template file to begin your analysis on my beer adorations, go to 
 
+    - Your RStudio Server [here](http://52.40.15.44/auth-sign-in) and sign in
     - File -> New File -> R Markdown -> From Template -> Chester's Beer Analysis
     - Give the file a name and proceed!
 
