@@ -1,7 +1,7 @@
 ---
 title: "Putting the R in ITS <br> <br>"
-#author: "<br> Chester Ismay (cismay@reed.edu) <br>"
-date: "Thursday, June 9, 2016 <br><br><br> Slides available at <br> <http://rpubs.com/cismay/r_in_ITS>"
+author: "Chester Ismay <br> Reed College <br><br>"
+date: "Thursday, June 9, 2016 <br><br> Slides available at <br> <http://rpubs.com/cismay/putting_R_in_ITS>"
 output: #html_document
   revealjs::revealjs_presentation:
     incremental: true
@@ -524,7 +524,7 @@ OR just Google it!
 ## Thanks! 
 
 >- Code for slide creation on [my GitHub page](https://github.com/ismayc/Reed_WoRkshops/tree/master/putting_R_in_ITS)
->- Slides available [here](http://rpubs.com/cismay/r_in_ITS)
+>- Slides available [here](http://rpubs.com/cismay/putting_R_in_ITS)
 
 ---
 
