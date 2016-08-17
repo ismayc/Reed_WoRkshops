@@ -40,6 +40,8 @@ include_graphics("gif/george.gif")
 #http://giphy.com/gifs/random-subreddit-button-gUlm9edDooQFy
 ```
 
+<!--[George Idea GIF](http://giphy.com/gifs/gUlm9edDooQFy/html5)-->
+
 <br><br>
 
 <small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
