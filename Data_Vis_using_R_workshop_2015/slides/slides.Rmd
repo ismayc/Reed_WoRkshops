@@ -11,7 +11,7 @@ output:
 ---
 
 ```{r set-options, include = FALSE}
-pkg <- c("dplyr", "ggplot2", "lubridate")
+pkg <- c("tidyr", "dplyr", "ggplot2", "ggvis")
 
 new.pkg <- pkg[!(pkg %in% installed.packages())]
 
@@ -30,7 +30,7 @@ if(!require(pnwflights14)){
 
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(lubridate))
+library(pnwflights14)
 library(revealjs)
 options(width = 100)
 ```
@@ -174,13 +174,7 @@ pdx_flights %>% str()
 
 # Question 1
 
-#### Do flights to Hawaii (from PDX) tend to arrive more than 30 minutes early than flights elsewhere?  
-
-<br>
-
-## Sub-question
-
-#### What are some of the properties of these early flights?
+#### Do flights to Hawaii (from PDX) tend to arrive more than 30 minutes early than flights elsewhere?
 
 ---
 
@@ -190,7 +184,6 @@ pdx_flights %>% str()
 pdx_early_flights <- pdx_flights %>% na.omit() %>%
   filter(arr_delay < -30)
 ```
-
 
 ```{r early, eval = FALSE}
 pdx_early_flights %>% ggplot(aes(x = distance, y = arr_delay)) +
@@ -205,6 +198,7 @@ pdx_early_flights %>% ggplot(aes(x = distance, y = arr_delay)) +
 ```
 
 ---
+
 
 ```{r HI, eval = FALSE, cache = TRUE}
 pdx_early_flights %>%
@@ -242,39 +236,6 @@ pdx_early_flights %>%
                               "Hawaiian", "Not Hawaiian")) %>%
   ggplot(aes(x = hawaii_dest , y = arr_delay)) +
   geom_boxplot()
-```
-
----
-### What about delays throughout the year?
-
----
-
-### Getting date in nice format
-
-```{r get_date}
-date_string <- paste0("2014-", 
-                      pdx_early_flights$month, "-", 
-                      pdx_early_flights$day)
-pdx_early_flights <- pdx_early_flights %>% 
-  mutate(day_of_year = lubridate::ymd(date_string))
-```
-
-
----
-
-```{r by_date}
-pdx_early_flights %>% ggplot(aes(x = day_of_year, y = arr_delay)) +
-  geom_point()
-```
-
----
-
-```{r HI_date, cache = TRUE}
-pdx_early_flights %>%
-  mutate(hawaii_dest = ifelse(dest %in% c("OGG", "KOA", "HNL", "LIH"), 
-                              "Hawaiian", "Not Hawaiian")) %>%
-  ggplot(aes(x = day_of_year, y = arr_delay)) +
-  geom_point(aes(color = hawaii_dest))
 ```
 
 ---
@@ -500,4 +461,3 @@ All workshops in ETC 211 from 4 - 5 PM
 <br /> <br />
 
 Slides available at <http://rpubs.com/cismay/dvur_workshop_2015>
-Code for slide creation on [my GitHub page] (https://github.com/ismayc/Reed_WoRkshops/tree/master/january_academy_2016)
