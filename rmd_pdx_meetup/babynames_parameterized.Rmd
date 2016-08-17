@@ -13,26 +13,22 @@ params:
   year: 1990
 ---
 
-```{r setup, include=FALSE, message=FALSE}
+```{r setup, message=FALSE}
 # This is where we load in all the packages we plan to use
-
-# List of packages required for this analysis
-pkg <- c("dplyr", "babynames")
-
-# Check if packages are not installed and assign the
-# names of the packages not installed to the variable new.pkg
-new.pkg <- pkg[!(pkg %in% installed.packages())]
 
 # If there are any packages in the list that aren't installed,
 # install them
-if (length(new.pkg)) {
-  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+if(!("needs" %in% installed.packages())) {
+  install.packages("needs", repos = "http://cran.rstudio.com")
 }
 
 # Load the packages into R
-library(dplyr)
-library(babynames)
+library(needs)
+needs(dplyr, babynames)
 data("babynames", package = "babynames")
+
+# Extracts package contents and appends it to Rprofile in wd
+needs::toProfile()
 ```
 
 The `babynames` data comes from the Social Security Administration and gives information about the Top 1000 names given to children in the USA since 1880 (<http://www.ssa.gov/oact/babynames/limits.html>). Notice that the data is called `names` above when we load it from the `babynames` package, but you will receive an error if you try to use `names` as your data frame before the `%>%`.  This is just a quirk with how Hadley labeled things. 

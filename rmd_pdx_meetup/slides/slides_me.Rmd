@@ -329,6 +329,9 @@ From Template -> Thesis
 
 ### Parameterized Reports
 
+- Download the Rmd file from <http://bit.ly/rmd-par>.
+- Make a new package and turn it into an R Markdown template.
+
 <br><br><br><br>
 
 <small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
