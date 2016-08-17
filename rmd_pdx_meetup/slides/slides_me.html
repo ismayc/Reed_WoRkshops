@@ -119,10 +119,24 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
     <h3 class="date">Portland R User Group <br> Wednesday, August 17, 2016 <br><br> Google Form for Questions: <a href="http://bit.ly/rmd-pdx" class="uri">http://bit.ly/rmd-pdx</a> <br> Slides available at <a href="http://bit.ly/rmd-pdx-talk" class="uri">http://bit.ly/rmd-pdx-talk</a></h3>
 </section>
 
+<section id="packages-to-install" class="slide level2">
+<h1>Packages to install</h1>
+<p>In order to follow along today and to be kind to the WeWork wifi, please run the following commands in your RStudio:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
+<span class="kw">install.packages</span>(<span class="st">&quot;revealjs&quot;</span>)
+<span class="kw">library</span>(devtools)
+<span class="kw">install_github</span>(<span class="st">&quot;ismayc/izzyuntappd&quot;</span>)
+<span class="kw">install_github</span>(<span class="st">&quot;ismayc/chemistr&quot;</span>)
+<span class="kw">install_github</span>(<span class="st">&quot;ismayc/reedoilabs&quot;</span>)
+<span class="kw">install_github</span>(<span class="st">&quot;ismayc/reedtemplates&quot;</span>)
+<span class="kw">install_github</span>(<span class="st">&quot;ismayc/thesisdown&quot;</span>)</code></pre></div>
+<p><br><br></p>
+<p><small>Slides available at <a href="http://bit.ly/rmd-pdx-talk" class="uri">http://bit.ly/rmd-pdx-talk</a></small></p>
+</section>
 <section id="humble-beginnings" class="slide level2">
 <h1>Humble beginnings</h1>
-<p><img src="gif/george.gif" width="500" /></p>
-<p><br><br></p>
+<p><img src="gif/george.gif" width="600" /></p>
+<p><br></p>
 <p><small>Slides available at <a href="http://bit.ly/rmd-pdx-talk" class="uri">http://bit.ly/rmd-pdx-talk</a></small></p>
 <aside class="notes">
 <p>I had no idea what an R Markdown template was 10 months ago. Andrew Bray, the statistician at Reed, approached me to see if I knew about a way to improve reproducibility for Senior Theses at Reed. I had no idea how to go about that. I loved working in RMarkdown, but I had always done just small single files with it.</p>
@@ -206,6 +220,14 @@ devtools::<span class="kw">install_github</span>(<span class="st">&quot;ismayc/i
 <p><br><br><br></p>
 <p><small>Slides available at <a href="http://bit.ly/rmd-pdx-talk" class="uri">http://bit.ly/rmd-pdx-talk</a></small></p>
 </section>
+<section id="slides-made-via-template" class="slide level2">
+<h1>Slides made via template</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;revealjs&quot;</span>)</code></pre></div>
+<p>File -&gt; New File -&gt; R Markdown -&gt; From Template -&gt;</p>
+<p>Reveal.js Presentation (HTML)</p>
+<p><br><br><br></p>
+<p><small>Slides available at <a href="http://bit.ly/rmd-pdx-talk" class="uri">http://bit.ly/rmd-pdx-talk</a></small></p>
+</section>
 <section id="demo-2" class="slide level2">
 <h1>DEMO 2</h1>
 <h3 id="creating-your-own-template-package">Creating your own template package</h3>
@@ -225,9 +247,10 @@ devtools::<span class="kw">install_github</span>(<span class="st">&quot;ismayc/c
 </section>
 <section id="distributing-files-1" class="slide level2">
 <h1>Distributing files</h1>
-<h3 id="oilabs-package-for-math-141-at-reed"><code>oilabs</code> package for MATH 141 at Reed</h3>
+<h3 id="reedoilabs-package-for-math-141-at-reed"><code>reedoilabs</code> package for MATH 141 at Reed</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
-devtools::<span class="kw">install_github</span>(<span class="st">&quot;Reedies/oilabs&quot;</span>)</code></pre></div>
+devtools::<span class="kw">install_github</span>(<span class="st">&quot;ismayc/reedoilabs&quot;</span>)</code></pre></div>
+<p><a href="https://andrewpbray.github.io/math-141/labs/">MATH 141 Labs from Spring 2016</a></p>
 <p>File -&gt; New File -&gt; R Markdown -&gt; From Template -&gt; .</p>
 <p><br><br></p>
 <p><small>Slides available at <a href="http://bit.ly/rmd-pdx-talk" class="uri">http://bit.ly/rmd-pdx-talk</a></small></p>

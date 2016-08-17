@@ -18,6 +18,26 @@ output: #html_document
     reveal_plugins: ["notes", "zoom"]
 ---
 
+## Packages to install
+
+In order to follow along today and to be kind to the WeWork wifi, please run the following commands in your RStudio:
+
+```{r eval=FALSE}
+install.packages("devtools")
+install.packages("revealjs")
+library(devtools)
+install_github("ismayc/izzyuntappd")
+install_github("ismayc/chemistr")
+install_github("ismayc/reedoilabs")
+install_github("ismayc/reedtemplates")
+install_github("ismayc/thesisdown")
+```
+
+<br><br>
+
+<small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
+
+
 ## Humble beginnings
 
 ```{r setup, include=FALSE}
@@ -35,13 +55,13 @@ lapply(pkg, library, character.only = TRUE)
 options(width = 100, scipen = 99)
 ```
 
-```{r george, echo=FALSE, out.width=500, fig.retina=NULL}
+```{r george, echo=FALSE, out.width=600, fig.retina=NULL}
 include_graphics("gif/george.gif")
 #http://giphy.com/gifs/random-subreddit-button-gUlm9edDooQFy
 ```
 
 
-<br><br>
+<br>
 
 <small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
 
@@ -167,6 +187,20 @@ include_graphics("gif/inception.gif")
 
 <small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
   
+## Slides made via template
+
+```{r eval=FALSE}
+install.packages("revealjs")
+```
+
+File -> New File -> R Markdown -> From Template ->
+
+Reveal.js Presentation (HTML)
+
+<br><br><br>
+
+<small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
+  
 
 
 ## DEMO 2
@@ -200,12 +234,16 @@ File -> New File -> R Markdown -> From Template -> .
 
 ## Distributing files
 
-### `oilabs` package for MATH 141 at Reed
+### `reedoilabs` package for MATH 141 at Reed
 
 ```{r eval=FALSE}
 install.packages("devtools")
-devtools::install_github("Reedies/oilabs")
+devtools::install_github("ismayc/reedoilabs")
 ```
+
+
+[MATH 141 Labs from Spring 2016](https://andrewpbray.github.io/math-141/labs/)
+
 
 File -> New File -> R Markdown -> From Template -> .
 
