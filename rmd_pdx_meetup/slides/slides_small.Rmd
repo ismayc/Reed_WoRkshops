@@ -1,8 +1,8 @@
 ---
 title: "Creating and using templates <br> in R Markdown"
-author: "<br> Chester Ismay  <br> Reed College / Pacific University <br><br>"
-date: "Portland R User Group <br> Wednesday, August 17, 2016 <br><br>  Google Form for Questions: <http://bit.ly/rmd-pdx> <br> Slides available at <http://bit.ly/rmd-pdx-talk>"
-output: #html_document
+author: "<br> Chester Ismay <br> Twitter: @old_man_chester <br> email: chester.ismay@gmail.com<br> Reed College / Pacific University <br><br>"
+date: "Portland R User Group <br> Wednesday, August 17, 2016"
+output: 
   revealjs::revealjs_presentation:
 #    incremental: true
     theme: beige
@@ -297,7 +297,10 @@ From Template -> Thesis
 
 ### Parameterized Reports
 
-<br><br><br><br>
+- Download the Rmd file from <http://bit.ly/rmd-par>.
+- Make a new package and turn this Rmd file into an R Markdown template.
+
+<br><br>
 
 <small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
   
@@ -330,8 +333,9 @@ From Template -> Thesis
 - Slides available at <https://ismayc.github.io/workshops/rmd-pdx.html>
 
 - Feedback is welcomed and encouraged:  
-
-    <http://bit.ly/rmd-pdx>
+    + Google Form: <http://bit.ly/rmd-pdx>
+    + Twitter: @old_man_chester
+    + email: chester.ismay@gmail.com
 
 - Let's go have beer!
 
