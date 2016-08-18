@@ -37,6 +37,11 @@ install_github("ismayc/thesisdown")
 
 <small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
 
+<aside class="notes">
+I had no idea what an R Markdown template was 10 months ago.  Andrew Bray, the statistician at Reed, approached me
+to see if I knew about a way to improve reproducibility for Senior Theses at Reed.  I had no idea how to go about that.
+</aside>
+
 
 ## Humble beginnings
 
@@ -66,8 +71,6 @@ include_graphics("gif/george.gif")
 <small>Slides available at <http://bit.ly/rmd-pdx-talk></small>
 
 <aside class="notes">
-I had no idea what an R Markdown template was 10 months ago.  Andrew Bray, the statistician at Reed, approached me
-to see if I knew about a way to improve reproducibility for Senior Theses at Reed.  I had no idea how to go about that.
 I loved working in RMarkdown, but I had always done just small single files with it.  
 
 Usually I relied on LaTeX and
