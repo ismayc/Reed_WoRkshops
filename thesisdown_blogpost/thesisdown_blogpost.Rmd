@@ -1,0 +1,24 @@
+---
+output: 
+  html_document:
+    keep_md: true
+---
+
+In October of 2015, I released an R Markdown senior thesis template R package and discussed it in the blogpost [here](http://blogs.reed.edu/ed-tech/2015/11/r-markdown-senior-thesis-template/).  It was well-received by students and faculty that worked with it and this past summer I worked on updating it to make it even nicer for students.  The big addition is the ability for students to export their senior thesis to a webpage (example [here](https://ismayc.github.io/thesisdown_book/)) and also label and cross-reference figures and tables more easily.  These additions and future revisions will be in the new `thesisdown` package in the spirit of the `bookdown` package developed and released by RStudio in summer 2016.
+
+I encourage you to look over [my blog post last year](http://blogs.reed.edu/ed-tech/2015/11/r-markdown-senior-thesis-template/) to get an idea of why R Markdown is such a friendly environment to work in.  Markdown specifically allows for typesetting of the finished document to be transparent inside the actual document.  Down the road, it is my hope that students will be able to write generating R Markdown files that will then export into many formats.  These currently include the LaTeX format to produce a PDF following Reed's senior thesis guidelines and the HTML version in gitbook style.  Eventually, this will include a Word document following Reed's guidelines and also an ePub (electronic book) version.  These last two are available at the moment but are not fully functional.  
+
+By allowing senior theses in a variety of formats, seniors will be more easily able to display their work to potential employers, other students, faculty members, and potential graduate schools.  This will allow them to get the word out about their studies and research while still encouraging reproducibility in their computations and in their analyses.
+
+### Install the template generating package
+
+To check out the package yourself, make sure you have RStudio and LaTeX installed (directions under R Tutorials [here](http://www.reed.edu/data-at-reed/resources/)) and then direct your browser to the GitHub page for the template: <http://github.com/ismayc/thesisdown>.  The `README.md` file near the bottom of the page below the files gives directions on installing the template package and getting the template running.  As you see there, you'll want to install the `thesisdown` package via the following commands in the RStudio console:
+
+```{r rticles, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("ismayc/thesisdown")
+```
+
+If you have any questions, feedback, or would like to report any issues, please [email me](cismay@reed.edu).
+
+(The generating R Markdown file for this HTML document---saved in the .Rmd extension---is available [here](http://reed.edu/data-at-reed/software/R/blogposts/thesisdown_blogpost.Rmd).)
