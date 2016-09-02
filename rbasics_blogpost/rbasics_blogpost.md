@@ -1,0 +1,12 @@
+
+The development of the `bookdown` package from RStudio in the summer of 2016 has facilitated greatly the ability of educators to create open-source materials for their students to use.  It expands to more than just academic settings though and it encourages the sharing of resources and knowledge in a free and reproducible way.
+
+As more and more students and faculty begin to use R in their courses and their research, I wanted to create a resource for the complete beginner to programming and statistics to more easily learn how to work with R.  Specifically, the book includes GIF screen recordings that show the reader what specific panes do in RStudio and also the formatting of an R Markdown document and the resulting HTML file.
+
+Folks who have used a programming language for awhile often forget about all the troubles they had when they initially got started with it.  To further support this, I'll be working on updating the book (specifically Chapter 6) with examples of common R errors, what they mean, and how to remedy them.
+
+The book is entitled "Getting Used to R, RStudio, and R Markdown" and can be found at <http://ismayc.github.io/rbasics-book>.  All of the source code for the book is available at <http://github.com/ismayc/rbasics>.  You can also request edits to the book by clicking on the Edit button near the top of the page.  You'll also find a PDF version of the book there with links to the GIFs (since PDFs can't have embedded GIFs like webpages can).
+
+Chapter 5 of the book walks through some of the basics of R in working with a data set corresponding to the elements of the periodic table.  To expand on this book and on using R in an introductory statistics setting, I've also embarked on creating a textbook using `bookdown` focused on data visualization and resampling techniques to build inferential concepts.  The book uses `dplyr` and `ggplot2` packages and focuses on two main data sets in the `nycflights13` and `ggplot2movies` packages.  Chapters 8 and 9 are in development, but the plan is for an introduction to the `broom` package to also be given there.  Lastly, there will be expanded Learning Checks throughout the book and Review Questions at the end of each chapter to help the reader better check their understanding of the material.  This book is available at <http://ismayc.github.io/moderndiver-book> with source code available [here](http://github.com/ismayc/moderndiver-source).
+
+Feel free to [email me](mailto:cismay@reed.edu) or tweet to me on Twitter `@old_man_chester`.
